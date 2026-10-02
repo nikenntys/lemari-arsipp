@@ -1,0 +1,89 @@
+/* ===== Halaman detail produk (produk/<kode>.html). Simpan sebagai css/produk-detail.css ===== */
+
+/* Pita atas: menyatu dengan header, berisi jejak halaman */
+.d-top{padding:128px 0 26px;color:#fff;border-bottom:2px solid var(--gold);
+  background:radial-gradient(48vw 48vw at 82% 40%,rgba(110,160,255,.3) 0%,transparent 62%),linear-gradient(135deg,#050d1f 0%,#0b1f4a 60%,#12327a 100%)}
+.d-top .crumbs{margin:0}
+
+/* Galeri kiri + info kanan */
+.d-main{padding:clamp(36px,5vw,56px) 0 clamp(36px,5vw,56px)}
+.d-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
+.d-gal{display:grid;grid-template-columns:116px minmax(0,1fr);gap:14px;align-items:start}
+.d-thumbs{display:flex;flex-direction:column;gap:14px}
+.d-th{position:relative;display:block;aspect-ratio:1/1.08;overflow:hidden;padding:0;border:2px solid transparent;border-radius:4px;background:#0b1f4a;cursor:pointer}
+.d-th img{display:block;width:100%;height:100%;object-fit:cover}
+.d-th span{position:absolute;left:0;right:0;bottom:0;padding:20px 8px 6px;text-align:left;font-size:.7rem;font-weight:600;color:#fff;background:linear-gradient(transparent,rgba(5,13,31,.88))}
+.d-th[aria-pressed=true],.d-th:hover{border-color:var(--gold)}
+.d-stage{position:relative}
+.d-view{aspect-ratio:686/540;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 38%,#2a539f 0%,#0b1f4a 55%,#050d1f 100%)}
+.d-view img{display:block}
+.d-view img.is-product{height:88%;width:auto;filter:drop-shadow(0 22px 20px rgba(0,0,0,.5))}
+.d-view img.is-detail{width:100%;height:100%;object-fit:cover}
+.d-zoom{position:absolute;top:14px;right:14px;padding:8px 16px;font:inherit;font-size:.78rem;letter-spacing:.04em;color:var(--gold);
+  background:rgba(5,13,31,.45);border:1px solid var(--gold);border-radius:3px;cursor:pointer;transition:background .2s}
+.d-zoom:hover{background:rgba(200,169,106,.25)}
+.d-th:focus-visible,.d-zoom:focus-visible,.d-sz:focus-visible,.lb-x:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* Foto detail yang belum diunggah: tampilkan potongan foto produk sebagai pengganti sementara */
+.fb{transform:scale(2.4)}
+.fb1{transform-origin:60% 40%}.fb2{transform-origin:72% 46%}.fb3{transform-origin:38% 30%}.fb4{transform-origin:50% 72%}
+
+.d-info .ptype{display:inline-block;align-self:auto}
+.d-info h1{font-size:clamp(2.2rem,4vw,3.2rem);line-height:1.1;letter-spacing:-.035em;font-weight:500;color:var(--navy);margin-bottom:16px}
+.d-info>p{font-size:1.05rem;color:var(--muted);font-weight:300;margin-bottom:28px;max-width:60ch}
+.d-spec{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:4px;margin-bottom:28px}
+.d-spec div{padding:18px 20px;border-left:1px solid var(--line)}.d-spec div:first-child{border-left:0}
+.d-spec dt{font-size:.72rem;color:var(--gold-d);letter-spacing:.06em}.d-spec dd{font-weight:500;font-size:1rem}
+.d-act{display:flex;flex-wrap:wrap;gap:12px;padding-bottom:28px;margin-bottom:24px;border-bottom:1px solid var(--line)}
+.d-ok{list-style:none;display:grid;gap:10px;color:var(--muted);font-weight:300}
+.d-ok li{display:flex;gap:12px;align-items:center}.d-ok li::before{content:"\2713";color:var(--gold-d);font-weight:600}
+
+/* Detail produk dan pilihan 10 ukuran */
+.d-more{padding:clamp(48px,6vw,80px) 0;border-top:1px solid var(--line)}
+.d-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(32px,5vw,72px);align-items:start}
+.d-h{font-size:1.6rem;line-height:1.2;letter-spacing:-.02em;font-weight:600;color:var(--navy);margin-bottom:18px}
+.d-note{color:var(--muted);font-weight:300;font-size:.92rem;margin:-6px 0 18px}
+.d-table div{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid var(--line)}
+.d-table dt{font-size:.8rem;color:var(--gold-d);letter-spacing:.06em}.d-table dd{font-weight:500;text-align:right}
+.d-sizes{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.d-sz{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 6px 12px;border:1px solid var(--line);border-radius:4px;background:#fff;color:inherit;font:inherit;cursor:pointer;transition:border-color .2s,background .2s}
+.d-sz:hover{border-color:var(--gold)}
+.d-sz[aria-pressed=true]{border-color:var(--gold);background:rgba(200,169,106,.13)}
+.d-szi{height:72px;width:100%;display:flex;align-items:flex-end;justify-content:center}.d-szi img{width:auto;max-width:90%}
+.d-szl{font-size:.74rem;font-weight:500;line-height:1.35;text-align:center}
+
+/* Produk lain dari merek yang sama */
+.d-other{padding:0 0 clamp(80px,9vw,120px)}
+.d-ogrid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.d-oc{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:box-shadow .3s,transform .3s}
+.d-oc:hover{transform:translateY(-4px);box-shadow:0 22px 40px rgba(11,31,74,.12)}
+.o-img{display:flex;justify-content:center;padding:18px 12px 12px;background:radial-gradient(circle at 50% 38%,#2a539f 0%,#0b1f4a 55%,#050d1f 100%)}
+.o-img img{height:150px;width:auto;filter:drop-shadow(0 14px 14px rgba(0,0,0,.45))}
+.d-oc b{padding:14px 18px 0;font-family:'Manrope','Poppins',sans-serif;font-weight:600;color:var(--navy)}
+.d-oc small{padding:0 18px 16px;color:var(--muted);font-weight:300}
+
+/* Jendela perbesar foto: di tengah layar dan besar */
+.lb{position:fixed;inset:0;margin:auto;width:fit-content;height:fit-content;border:0;padding:0;background:transparent;max-width:96vw;max-height:96vh;overflow:visible}
+.lb::backdrop{background:rgba(5,13,31,.88)}
+.lb img{display:block;height:min(88vh,960px);width:auto;max-width:94vw;object-fit:contain;border-radius:4px;background:radial-gradient(circle at 50% 38%,#2a539f 0%,#0b1f4a 55%,#050d1f 100%)}
+.lb-x{position:absolute;top:10px;right:10px;z-index:2;width:42px;height:42px;border-radius:50%;border:0;background:#fff;color:var(--navy);font-size:1.7rem;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+body:has(dialog[open]){overflow:hidden}
+
+/* Mode gelap */
+[data-theme=dark] :is(.d-info h1,.d-h,.d-oc b){color:#f2f6ff}
+[data-theme=dark] :is(.d-sz,.d-oc){background:#0c1a36}
+[data-theme=dark] .d-sz[aria-pressed=true]{background:rgba(200,169,106,.16)}
+
+/* Tampilan tablet dan HP */
+@media(max-width:1000px){
+  .d-grid,.d-cols{grid-template-columns:1fr}
+  .d-ogrid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+  .d-top{padding-top:112px}
+  .d-gal{grid-template-columns:1fr}
+  .d-thumbs{flex-direction:row;order:2}.d-th{flex:1;aspect-ratio:1/1}
+  .d-spec{grid-template-columns:1fr}.d-spec div{border-left:0;border-top:1px solid var(--line)}.d-spec div:first-child{border-top:0}
+  .d-sizes{grid-template-columns:repeat(2,1fr)}
+}

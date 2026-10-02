@@ -11,11 +11,21 @@
 <link rel="canonical" href="https://www.cahayamustika.com/kontak.html">
 <meta property="og:type" content="website"><meta property="og:locale" content="id_ID"><meta property="og:site_name" content="CV Cahaya Mustika">
 <meta property="og:title" content="Kontak dan Pemesanan Lemari Arsip | CV Cahaya Mustika"><meta property="og:description" content="Hubungi CV Cahaya Mustika lewat WhatsApp atau formulir untuk harga distributor, pembelian partai besar, dan kerja sama reseller lemari arsip."><meta property="og:url" content="https://www.cahayamustika.com/kontak.html"><meta property="og:image" content="https://www.cahayamustika.com/assets/images/og-image.svg"><meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LocalBusiness", "@id": "https://www.cahayamustika.com/#bisnis", "name": "CV Cahaya Mustika", "description": "Distributor lemari arsip merek Vivorti dan Zecco untuk kantor, sekolah, dan instansi. Melayani pembelian partai besar dan reseller.", "url": "https://www.cahayamustika.com/", "logo": "https://www.cahayamustika.com/assets/images/logo-cv.svg", "image": "https://www.cahayamustika.com/assets/images/og-image.svg", "telephone": "+62 812-3456-7890", "email": "halo@cahayamustika.com", "openingHours": "Mo-Sa 08:00-17:00", "areaServed": {"@type": "Country", "name": "Indonesia"}, "address": {"@type": "PostalAddress", "addressLocality": "Malang", "addressRegion": "Jawa Timur", "addressCountry": "ID"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LocalBusiness", "@id": "https://www.cahayamustika.com/#bisnis", "name": "CV Cahaya Mustika", "description": "Distributor lemari arsip merek Vivorti dan Zecco untuk kantor, sekolah, dan instansi. Melayani pembelian partai besar dan reseller.", "url": "https://www.cahayamustika.com/", "logo": "https://www.cahayamustika.com/assets/images/logo-cv.svg", "image": "https://www.cahayamustika.com/assets/images/og-image.svg", "telephone": "+62 811-3791-1115", "email": "cahayamustikainternesia@gmail.com", "openingHours": "Mo-Fr 08:00-16:15", "areaServed": {"@type": "Country", "name": "Indonesia"}, "address": {"@type": "PostalAddress", "addressLocality": "Malang", "addressRegion": "Jawa Timur", "addressCountry": "ID"}}]}</script>
 <link rel="preload" as="image" href="assets/images/bg/kontak-1.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/images/logo.svg"><link rel="stylesheet" href="css/style.css">
+<style>
+/* ===== Peta lokasi (Google Maps) di halaman Kontak ===== */
+.peta{margin-top:44px}
+.peta-h{font-size:1.3rem;line-height:1.2;letter-spacing:-.02em;font-weight:600;color:var(--navy);margin-bottom:6px}
+.peta-alamat{color:var(--muted);font-weight:300;font-size:.92rem;margin-bottom:16px}
+.peta-frame{aspect-ratio:16/10;border:1px solid var(--line);border-bottom:2px solid var(--gold);border-radius:var(--r);overflow:hidden;background:var(--ivory)}
+.peta-frame iframe{display:block;width:100%;height:100%;border:0}
+.peta-act{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+[data-theme=dark] .peta-h{color:#f2f6ff}
+</style>
 </head>
 <body>
 <header class="navbar" id="top"><div class="nav-inner">
@@ -29,7 +39,9 @@
 <!-- LATAR FOTO: ganti atau tambah foto lewat atribut data-bg (pisahkan dengan koma). Foto ada di assets/images/bg/. Lebih dari satu foto = berganti otomatis. -->
 <section class="hero page-hero" data-bg="assets/images/bg/kontak-1.jpg,assets/images/bg/kontak-2.jpg" data-interval="7000"><div class="bg-slides"><span class="on" style="background-image:url('assets/images/bg/kontak-1.jpg')"></span></div>
 <div class="wrap hero-text"><h1>Kontak kami</h1><p>Ceritakan kebutuhan arsip Anda. Kami balas pada jam kerja, biasanya kurang dari satu jam.</p></div></section>
-<section class="section" id="kontak"><div class="wrap contact-grid"><div class="cinfo"><ul><li><b>WhatsApp</b><span>+62 811-3791-1115</span></li><li><b>Email</b><span>cahayamustikainternesia@gmail.com</span></li><li><b>Alamat</b><span>Malang, Jawa Timur</span></li><li><b>Jam kerja</b><span>Senin sampai Jumat, 08.00 sampai 16.15</span></li></ul></div>
+<section class="section" id="kontak"><div class="wrap contact-grid"><div class="cinfo"><ul><li><b>WhatsApp</b><span>+62 811-3791-1115</span></li><li><b>Email</b><span>cahayamustikainternesia@gmail.com</span></li><li><b>Alamat</b><span>Malang, Jawa Timur</span></li><li><b>Jam kerja</b><span>Senin sampai Jumat, 08.00 sampai 16.15</span></li></ul><div class="peta" id="peta" data-alamat="Malang, Jawa Timur"><h3 class="peta-h">Lokasi kami</h3><p class="peta-alamat" id="peta-alamat"></p>
+<div class="peta-frame"><iframe id="peta-frame" title="Peta lokasi CV Cahaya Mustika di Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
+<div class="peta-act"><a class="btn btn-primary btn-sm" id="peta-buka" target="_blank" rel="noopener" href="https://www.google.com/maps">Buka di Google Maps</a><a class="btn btn-ghost btn-sm" id="peta-arah" target="_blank" rel="noopener" href="https://www.google.com/maps">Petunjuk arah</a></div></div></div>
 <form class="contact" id="contact-form"><label>Nama lengkap<input type="text" name="nama" required></label><label>Nomor WhatsApp<input type="tel" name="wa" required></label>
 <label>Anda membeli sebagai<select name="peran"><option>Instansi atau perusahaan</option><option>Reseller atau toko</option><option>Perorangan</option></select></label>
 <label>Produk yang diminati<select name="produk" id="produk-select"><optgroup label="Vivorti"><option>Vivorti VF-2</option><option>Vivorti VF-4</option><option>Vivorti VP-2</option><option>Vivorti VL-6</option></optgroup><optgroup label="Zecco"><option>Zecco ZS-2</option><option>Zecco ZK-2</option><option>Zecco ZR-3</option><option>Zecco ZF-3</option></optgroup><option>Belum tahu, mohon rekomendasi</option></select></label>
@@ -43,4 +55,16 @@
 <div><b>Perusahaan</b><a href="portofolio.html">Portofolio</a><a href="artikel.html">Artikel</a><a href="index.html#faq">Tanya Jawab</a><a href="kontak.html">Kontak Kami</a></div></div>
 <div class="wrap copy">&copy; 2026 CV Cahaya Mustika. Semua hak dilindungi.</div></footer>
 <script src="js/kamus-en.js"></script><script src="js/prefs.js"></script><script src="js/latar.js"></script><script src="js/script.js"></script>
+<script>
+/* Peta lokasi. Ganti alamat di atribut data-alamat pada <div class="peta"> di atas (satu tempat saja).
+   Tulis selengkap mungkin, contoh: "CV Cahaya Mustika, Jl. Contoh No. 12, Malang, Jawa Timur". */
+(function () {
+  var p = document.getElementById('peta'); if (!p) return;
+  var a = p.getAttribute('data-alamat'), q = encodeURIComponent(a);
+  document.getElementById('peta-alamat').textContent = a;
+  document.getElementById('peta-frame').src = 'https://www.google.com/maps?q=' + q + '&hl=id&z=16&output=embed';
+  document.getElementById('peta-buka').href = 'https://www.google.com/maps/search/?api=1&query=' + q;
+  document.getElementById('peta-arah').href = 'https://www.google.com/maps/dir/?api=1&destination=' + q;
+})();
+</script>
 </body></html>
