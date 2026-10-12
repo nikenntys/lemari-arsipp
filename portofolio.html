@@ -16,6 +16,45 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/images/logo.svg"><link rel="stylesheet" href="css/style.css">
+<style>
+/* ===== Portofolio bergambar ===== */
+.pf-head{max-width:640px;margin-bottom:24px}
+.pf-head h2{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:500;letter-spacing:-.03em;line-height:1.2;color:var(--navy,#0b1f4a);margin-bottom:10px}
+.pf-head p{color:var(--muted,#5b6b8c);font-weight:300}
+.pf-filter{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px}
+.pf-filter button{padding:9px 18px;border-radius:999px;border:1px solid var(--line,#dbe3f2);background:transparent;color:inherit;font:inherit;font-size:.84rem;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.pf-filter button:hover{border-color:var(--gold,#c8a96a)}
+.pf-filter button[aria-pressed=true]{background:var(--navy,#0b1f4a);border-color:var(--navy,#0b1f4a);color:#fff}
+.pf-filter button:focus-visible{outline:2px solid var(--gold,#c8a96a);outline-offset:2px}
+.pf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;grid-auto-flow:dense}
+.pf-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line,#dbe3f2);border-radius:var(--r,14px);overflow:hidden;transition:box-shadow .3s,transform .3s}
+.pf-card[hidden]{display:none}
+.pf-card:hover{transform:translateY(-5px);box-shadow:0 26px 48px rgba(11,31,74,.14)}
+.pf-wide{grid-column:span 2}
+/* kotak gambar: foto proyek; bila foto belum ada, tampil foto produk di atas biru muda */
+.pf-img{position:relative;aspect-ratio:16/10;overflow:hidden;background:radial-gradient(circle at 78% 18%,rgba(255,255,255,.30),transparent 58%),linear-gradient(150deg,#2f5fbf 0%,#4678d4 52%,#6a95de 100%)}
+.pf-img img.foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.pf-card:hover .pf-img img.foto{transform:scale(1.05)}
+.pf-img::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,rgba(11,31,74,.72) 0%,rgba(11,31,74,0) 55%)}
+.pf-prod{display:none;position:absolute;inset:0;align-items:flex-end;justify-content:center;gap:10px;padding:26px 22px 20px}
+.pf-prod img{height:76%;width:auto;filter:drop-shadow(0 14px 14px rgba(11,31,74,.4))}
+.pf-img.tanpa-foto img.foto{display:none}
+.pf-img.tanpa-foto .pf-prod{display:flex}
+.pf-tag{position:absolute;z-index:1;top:16px;left:16px;padding:4px 13px;border-radius:3px;font-size:.72rem;letter-spacing:.06em;font-weight:500;color:#fff;border:1px solid rgba(255,255,255,.7);background:rgba(11,31,74,.3)}
+.pf-unit{position:absolute;z-index:1;left:18px;bottom:14px;font-family:'Manrope','Poppins',sans-serif;font-size:2rem;font-weight:600;letter-spacing:-.03em;line-height:1;color:#fff;text-shadow:0 2px 10px rgba(11,31,74,.5)}
+.pf-wide .pf-unit{font-size:2.8rem}
+.pf-body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:8px;flex:1}
+.pf-body h3{font-size:1.1rem;font-weight:600;letter-spacing:-.01em;color:var(--navy,#0b1f4a)}
+.pf-body p{font-size:.9rem;color:var(--muted,#5b6b8c);font-weight:300}
+.pf-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:10px}
+.pf-chips a{padding:4px 12px;border:1px solid var(--line,#dbe3f2);border-radius:3px;font-size:.76rem;color:var(--gold-d,#9b7f43);font-weight:500;transition:border-color .2s,background .2s}
+.pf-chips a:hover{border-color:var(--gold,#c8a96a);background:rgba(200,169,106,.12)}
+[data-theme=dark] .pf-card{background:#0c1a36}
+[data-theme=dark] :is(.pf-head h2,.pf-body h3){color:#f2f6ff}
+[data-theme=dark] .pf-filter button[aria-pressed=true]{background:var(--gold,#c8a96a);border-color:var(--gold,#c8a96a);color:#050d1f}
+@media(max-width:1000px){.pf-grid{grid-template-columns:repeat(2,1fr)}.pf-wide{grid-column:span 2}}
+@media(max-width:620px){.pf-grid{grid-template-columns:1fr}.pf-wide{grid-column:auto}.pf-wide .pf-unit{font-size:2rem}}
+</style>
 </head>
 <body>
 <header class="navbar" id="top"><div class="nav-inner">
@@ -23,23 +62,75 @@
 <button class="menu-toggle" aria-label="Buka menu" aria-expanded="false"><span></span><span></span><span></span></button>
 <nav class="nav-menu" id="menu"><a href="index.html">Beranda</a>
 <div class="dropdown"><a class="dropdown-btn" href="produk.html" aria-haspopup="true">Produk <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
-<div class="dropdown-list"><a href="produk.html#vivorti">Merek Vivorti</a><a href="produk.html#zecco">Merek Zecco</a></div></div>
+<div class="dropdown-list"><a href="produk-vivorti.html">Merek Vivorti</a><a href="produk-zecco.html">Merek Zecco</a></div></div>
 <a href="portofolio.html" aria-current="page">Portofolio</a><a href="artikel.html">Artikel</a><a href="kontak.html">Kontak Kami</a><div class="prefs"><div class="lang" role="group" aria-label="Bahasa"><button type="button" data-lang="id" aria-pressed="true">ID</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><button type="button" class="theme-btn" aria-label="Ganti mode gelap atau terang"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button></div><a href="kontak.html" class="btn btn-primary btn-sm">Konsultasi Sekarang</a></nav></div></header>
 <main>
 <!-- LATAR FOTO: ganti atau tambah foto lewat atribut data-bg (pisahkan dengan koma). Foto ada di assets/images/bg/. Lebih dari satu foto = berganti otomatis. -->
 <section class="hero page-hero" data-bg="assets/images/bg/portofolio-1.jpg,assets/images/bg/portofolio-2.jpg" data-interval="7000"><div class="bg-slides"><span class="on" style="background-image:url('assets/images/bg/portofolio-1.jpg')"></span></div>
 <div class="wrap hero-text"><h1>Dipercaya untuk ruang arsip yang serius</h1><p>Contoh pengadaan yang sudah kami tangani.</p></div></section>
-<section class="section" id="portofolio"><div class="wrap"><div class="bento"><div class="tile t-big"><span class="tag">Instansi pemerintah</span><strong>40 unit</strong><h3>Kantor Pemerintah Daerah</h3><p>Vivorti VF-4 untuk ruang arsip dinas, lengkap dengan pengiriman dan penataan.</p></div>
-<div class="tile"><span class="tag">Pendidikan</span><strong>24 unit</strong><h3>Sekolah Menengah</h3><p>Zecco ZS-2 untuk tata usaha dan ruang guru.</p></div>
-<div class="tile"><span class="tag">Layanan hukum</span><strong>12 unit</strong><h3>Kantor Notaris</h3><p>Vivorti VF-2 dan VF-4 untuk akta klien.</p></div>
-<div class="tile wide"><span class="tag">Kesehatan</span><strong>18 unit</strong><h3>Klinik dan Rumah Sakit</h3><p>Zecco ZK-2 dan ZR-3 untuk rekam medis dan berkas administrasi.</p></div></div></div></section>
+<section class="section" id="portofolio"><div class="wrap">
+<div class="pf-head"><h2>Proyek yang sudah kami tangani</h2><p>Contoh pengadaan lemari arsip dan loker untuk instansi pemerintah, sekolah, kantor hukum, klinik, dan perusahaan.</p></div>
+<div class="pf-filter" role="group" aria-label="Saring proyek menurut jenis"><button type="button" data-k="semua" aria-pressed="true">Semua</button><button type="button" data-k="pemerintah" aria-pressed="false">Instansi pemerintah</button><button type="button" data-k="pendidikan" aria-pressed="false">Pendidikan</button><button type="button" data-k="hukum" aria-pressed="false">Layanan hukum</button><button type="button" data-k="kesehatan" aria-pressed="false">Kesehatan</button><button type="button" data-k="perusahaan" aria-pressed="false">Perusahaan</button></div>
+<div class="pf-grid">
+<article class="pf-card pf-wide" data-kat="pemerintah">
+<div class="pf-img"><img class="foto" src="assets/images/portofolio/pemda.jpg" alt="Pengadaan lemari arsip untuk Kantor Pemerintah Daerah" loading="lazy"><span class="pf-prod"><img src="assets/images/VT-SL02G.png" alt="" loading="lazy"></span><span class="pf-tag">Instansi pemerintah</span><span class="pf-unit">40 unit</span></div>
+<div class="pf-body"><h3>Kantor Pemerintah Daerah</h3><p>Vivorti VF-4 untuk ruang arsip dinas, lengkap dengan pengiriman dan penataan.</p><div class="pf-chips"><a href="produk/vf4.html">Vivorti VF-4</a></div></div>
+</article>
+<article class="pf-card" data-kat="pendidikan">
+<div class="pf-img"><img class="foto" src="assets/images/portofolio/sekolah.jpg" alt="Pengadaan lemari arsip untuk Sekolah Menengah" loading="lazy"><span class="pf-prod"><img src="assets/images/zeco-1.png" alt="" loading="lazy"></span><span class="pf-tag">Pendidikan</span><span class="pf-unit">24 unit</span></div>
+<div class="pf-body"><h3>Sekolah Menengah</h3><p>Zecco ZS-2 untuk tata usaha dan ruang guru.</p><div class="pf-chips"><a href="produk/zs2.html">Zecco ZS-2</a></div></div>
+</article>
+<article class="pf-card" data-kat="hukum">
+<div class="pf-img"><img class="foto" src="assets/images/portofolio/notaris.jpg" alt="Pengadaan lemari arsip untuk Kantor Notaris" loading="lazy"><span class="pf-prod"><img src="assets/images/VT-SL01.png" alt="" loading="lazy"><img src="assets/images/VT-SL02G.png" alt="" loading="lazy"></span><span class="pf-tag">Layanan hukum</span><span class="pf-unit">12 unit</span></div>
+<div class="pf-body"><h3>Kantor Notaris</h3><p>Vivorti VF-2 dan VF-4 untuk akta klien.</p><div class="pf-chips"><a href="produk/vf2.html">Vivorti VF-2</a><a href="produk/vf4.html">Vivorti VF-4</a></div></div>
+</article>
+<article class="pf-card" data-kat="kesehatan">
+<div class="pf-img"><img class="foto" src="assets/images/portofolio/klinik.jpg" alt="Pengadaan lemari arsip untuk Klinik dan Rumah Sakit" loading="lazy"><span class="pf-prod"><img src="assets/images/zeco-2.png" alt="" loading="lazy"><img src="assets/images/zeco-3.png" alt="" loading="lazy"></span><span class="pf-tag">Kesehatan</span><span class="pf-unit">18 unit</span></div>
+<div class="pf-body"><h3>Klinik dan Rumah Sakit</h3><p>Zecco ZK-2 dan ZR-3 untuk rekam medis dan berkas administrasi.</p><div class="pf-chips"><a href="produk/zk2.html">Zecco ZK-2</a><a href="produk/zr3.html">Zecco ZR-3</a></div></div>
+</article>
+<article class="pf-card" data-kat="pemerintah">
+<div class="pf-img"><img class="foto" src="assets/images/portofolio/perpustakaan.jpg" alt="Pengadaan lemari arsip untuk Perpustakaan Daerah" loading="lazy"><span class="pf-prod"><img src="assets/images/lemari arsip-4.png" alt="" loading="lazy"><img src="assets/images/zeco-2.png" alt="" loading="lazy"></span><span class="pf-tag">Instansi pemerintah</span><span class="pf-unit">30 unit</span></div>
+<div class="pf-body"><h3>Perpustakaan Daerah</h3><p>Vivorti VP-2 dan Zecco ZK-2 untuk koleksi arsip dan dokumen daerah.</p><div class="pf-chips"><a href="produk/vp2.html">Vivorti VP-2</a><a href="produk/zk2.html">Zecco ZK-2</a></div></div>
+</article>
+<article class="pf-card" data-kat="perusahaan">
+<div class="pf-img"><img class="foto" src="assets/images/portofolio/pabrik.jpg" alt="Pengadaan lemari arsip untuk Pabrik dan Gudang" loading="lazy"><span class="pf-prod"><img src="assets/images/lemari arsip-5.png" alt="" loading="lazy"></span><span class="pf-tag">Perusahaan</span><span class="pf-unit">96 unit</span></div>
+<div class="pf-body"><h3>Pabrik dan Gudang</h3><p>Vivorti VL-6 sebagai loker karyawan, lengkap dengan kunci tiap pintu.</p><div class="pf-chips"><a href="produk/vl6.html">Vivorti VL-6</a></div></div>
+</article>
+<article class="pf-card" data-kat="pendidikan">
+<div class="pf-img"><img class="foto" src="assets/images/portofolio/kampus.jpg" alt="Pengadaan lemari arsip untuk Perguruan Tinggi" loading="lazy"><span class="pf-prod"><img src="assets/images/zeco-4.png" alt="" loading="lazy"><img src="assets/images/zeco-1.png" alt="" loading="lazy"></span><span class="pf-tag">Pendidikan</span><span class="pf-unit">36 unit</span></div>
+<div class="pf-body"><h3>Perguruan Tinggi</h3><p>Zecco ZF-3 dan ZS-2 untuk bagian akademik dan administrasi.</p><div class="pf-chips"><a href="produk/zf3.html">Zecco ZF-3</a><a href="produk/zs2.html">Zecco ZS-2</a></div></div>
+</article>
+<article class="pf-card" data-kat="perusahaan">
+<div class="pf-img"><img class="foto" src="assets/images/portofolio/konsultan.jpg" alt="Pengadaan lemari arsip untuk Kantor Konsultan dan Akuntan" loading="lazy"><span class="pf-prod"><img src="assets/images/lemari arsip-4.png" alt="" loading="lazy"><img src="assets/images/zeco-4.png" alt="" loading="lazy"></span><span class="pf-tag">Perusahaan</span><span class="pf-unit">16 unit</span></div>
+<div class="pf-body"><h3>Kantor Konsultan dan Akuntan</h3><p>Vivorti VP-2 dan Zecco ZF-3 untuk dokumen klien yang harus tersimpan aman.</p><div class="pf-chips"><a href="produk/vp2.html">Vivorti VP-2</a><a href="produk/zf3.html">Zecco ZF-3</a></div></div>
+</article>
+</div></div></section>
 <section class="cta" data-bg="assets/images/bg/cta-1.jpg,assets/images/bg/cta-2.jpg" data-interval="8000"><div class="bg-slides"><span class="on" style="background-image:url('assets/images/bg/cta-1.jpg')"></span></div><div class="wrap cta-inner"><div><h2>Bingung memilih merek, model, atau jumlah?</h2><p>Kirim denah ruangan dan perkiraan jumlah berkas, kami rekomendasikan modelnya.</p></div><a href="kontak.html" class="btn btn-light">Konsultasi Sekarang</a></div></section>
 </main>
 <footer class="footer"><div class="wrap foot-grid">
 <div><a href="index.html" class="brand" aria-label="CV Cahaya Mustika"><img src="assets/images/LOGO CMI.png" alt="CV Cahaya Mustika" width="220" height="56"></a><p>CV Cahaya Mustika, distributor lemari arsip merek Vivorti dan Zecco di Malang, melayani pengiriman ke seluruh Indonesia.</p></div>
-<div><b>Vivorti</b><a href="produk.html#vf2">Vivorti VF-2</a><a href="produk.html#vf4">Vivorti VF-4</a><a href="produk.html#vp2">Vivorti VP-2</a><a href="produk.html#vl6">Vivorti VL-6</a></div>
-<div><b>Zecco</b><a href="produk.html#zs2">Zecco ZS-2</a><a href="produk.html#zk2">Zecco ZK-2</a><a href="produk.html#zr3">Zecco ZR-3</a><a href="produk.html#zf3">Zecco ZF-3</a></div>
+<div><b>Vivorti</b><a href="produk-vivorti.html#vf2">Vivorti VF-2</a><a href="produk-vivorti.html#vf4">Vivorti VF-4</a><a href="produk-vivorti.html#vp2">Vivorti VP-2</a><a href="produk-vivorti.html#vl6">Vivorti VL-6</a></div>
+<div><b>Zecco</b><a href="produk-zecco.html#zs2">Zecco ZS-2</a><a href="produk-zecco.html#zk2">Zecco ZK-2</a><a href="produk-zecco.html#zr3">Zecco ZR-3</a><a href="produk-zecco.html#zf3">Zecco ZF-3</a></div>
 <div><b>Perusahaan</b><a href="portofolio.html">Portofolio</a><a href="artikel.html">Artikel</a><a href="index.html#faq">Tanya Jawab</a><a href="kontak.html">Kontak Kami</a></div></div>
 <div class="wrap copy">&copy; 2026 CV Cahaya Mustika. Semua hak dilindungi.</div></footer>
 <script src="js/kamus-en.js"></script><script src="js/prefs.js"></script><script src="js/latar.js"></script><script src="js/script.js"></script>
+<script>
+/* Portofolio: saring proyek dan pengganti foto. Foto proyek ada di assets/images/portofolio/<nama>.jpg.
+   Bila foto belum ada, otomatis tampil foto produknya di atas latar biru muda. */
+(function () {
+  var btns = document.querySelectorAll('.pf-filter button'), cards = document.querySelectorAll('.pf-card');
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var k = b.getAttribute('data-k');
+      btns.forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+      cards.forEach(function (c) { c.hidden = k !== 'semua' && c.getAttribute('data-kat') !== k; });
+    });
+  });
+  document.querySelectorAll('.pf-img img.foto').forEach(function (i) {
+    function tanpaFoto() { i.parentNode.classList.add('tanpa-foto'); }
+    i.addEventListener('error', tanpaFoto);
+    if (i.complete && i.naturalWidth === 0) tanpaFoto();
+  });
+})();
+</script>
 </body></html>

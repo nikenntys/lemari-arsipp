@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Bangun halaman detail tiap produk (produk/<kode>.html, contoh produk/vf2.html) dan tambahkan ke sitemap.xml.
-Sumber data: kartu produk dan blok UKURAN di produk.html; header dan footer disalin dari index.html.
-Jalankan setiap kali produk.html atau header/footer index.html berubah:  python build_produk.py
+Sumber data: kartu produk dan blok UKURAN di produk-vivorti.html dan produk-zecco.html; header dan footer disalin dari index.html.
+Jalankan setiap kali produk-vivorti.html, produk-zecco.html, atau header/footer index.html berubah:  python build_produk.py
 Butuh Python 3 saja (tanpa library tambahan)."""
 import re, json, html, os, glob, datetime
 R = os.path.dirname(os.path.abspath(__file__))
@@ -26,7 +26,7 @@ LABEL_BAWAAN = ['Kunci', 'Handle pintu', 'Pintu', 'Rak dalam']
 KEUNGGULAN = ['Harga distributor untuk satuan dan partai besar', 'Garansi atas cacat produksi', 'Dikirim aman ke seluruh Indonesia']
 # ========================
 
-index = rd('index.html'); prod = rd('produk.html')
+index = rd('index.html'); prod = rd('produk-vivorti.html') + rd('produk-zecco.html')   # Vivorti dulu, lalu Zecco
 DOMAIN = re.search(r'<link rel="canonical" href="([^"]+)"', index).group(1)
 
 # --- data produk dari kartu di produk.html ---
@@ -39,8 +39,9 @@ for m in re.finditer(r'<article class="pcard" id="(\w+)">.*?<img src="([^"]+)".*
     P.append(dict(id=i, img=img, type=tipe, name=nama, desc=desc, ukuran=uk, kunci=kunci, cocok=cocok,
                   brand='Vivorti' if m.start() < batas else 'Zecco', bid='vivorti' if m.start() < batas else 'zecco'))
 # --- 10 ukuran tiap model dari blok UKURAN di produk.html ---
-blk = prod[prod.index('const UKURAN'):]; blk = blk[:blk.index('};')]
-UK = {k: json.loads(v) for k, v in re.findall(r'(\w+):\s*(\[.*?\])', blk, re.S)}
+UK = {}
+for mm in re.finditer(r'const UKURAN = \{(.*?)\n  \};', prod, re.S):
+    UK.update({k: json.loads(v) for k, v in re.findall(r'(\w+):\s*(\[.*?\])', mm.group(1), re.S)})
 
 # --- header & footer disalin dari index.html, alamatnya disesuaikan untuk folder produk/ ---
 def rel(block):
@@ -73,7 +74,7 @@ TPL = '''<!DOCTYPE html>
 <body>
 @@NAV@@
 <main>
-<section class="d-top"><div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Beranda</a><span>/</span><a href="../produk.html">Produk</a><span>/</span><a href="../produk.html#@@BID@@">@@BRAND@@</a><span>/</span>@@MODEL@@</nav></div></section>
+<section class="d-top"><div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Beranda</a><span>/</span><a href="../produk.html">Produk</a><span>/</span><a href="../produk-@@BID@@.html">@@BRAND@@</a><span>/</span>@@MODEL@@</nav></div></section>
 
 <section class="d-main"><div class="wrap d-grid">
 <div class="d-gal">
@@ -83,7 +84,7 @@ TPL = '''<!DOCTYPE html>
 <div class="d-info">
 <span class="ptype">@@TIPE@@</span><h1>@@NAMA@@</h1><p>@@DESC@@</p>
 <dl class="d-spec"><div><dt>Ukuran</dt><dd id="d-uk">@@UKDEF@@ cm</dd></div><div><dt>Kunci</dt><dd>@@KUNCI@@</dd></div><div><dt>Cocok untuk</dt><dd>@@COCOK@@</dd></div></dl>
-<div class="d-act"><a id="d-tanya" class="btn btn-primary" href="@@TANYA@@">Tanya harga</a><a class="btn btn-ghost" href="../produk.html#@@BID@@">Semua produk @@BRAND@@</a></div>
+<div class="d-act"><a id="d-tanya" class="btn btn-primary" href="@@TANYA@@">Tanya harga</a><a class="btn btn-ghost" href="../produk-@@BID@@.html">Semua produk @@BRAND@@</a></div>
 <ul class="d-ok">@@OK@@</ul>
 </div>
 </div></section>
@@ -155,7 +156,7 @@ for p in P:
         {"@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Beranda", "item": DOMAIN},
             {"@type": "ListItem", "position": 2, "name": "Produk", "item": DOMAIN + "produk.html"},
-            {"@type": "ListItem", "position": 3, "name": p['brand'], "item": f'{DOMAIN}produk.html#{p["bid"]}'},
+            {"@type": "ListItem", "position": 3, "name": p['brand'], "item": f'{DOMAIN}produk-{p["bid"]}.html'},
             {"@type": "ListItem", "position": 4, "name": p['name'], "item": url}]}]}
     thumbs = ''.join(
         f'<button type="button" class="d-th" aria-pressed="false" aria-label="Foto detail: {esc(lb)}"><img src="../{FOTO_DETAIL.format(id=p["id"], n=n)}" '

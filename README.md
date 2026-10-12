@@ -37,3 +37,10 @@ Website kini terdiri dari lima halaman sendiri-sendiri: index.html (Beranda), pr
 
 ## Foto latar dikurangi (v15c)
 Tampilan, gerak, dan pergantian foto latar sama persis dengan v15. Yang berubah hanya isi fotonya: tiap foto di assets/images/bg/ kini berisi 3 lemari (sebelumnya 5-6) yang berdiri di sisi kanan, jadi tidak ramai di belakang tulisan. Nama file tidak berubah, jadi HTML dan CSS tidak perlu diubah. Untuk foto sendiri: ganti file di folder itu dengan nama yang sama (1920 x 1080 px).
+
+## Halaman produk dipisah per merek (v17)
+- produk.html          : halaman pemilih merek (dua kartu besar menuju halaman merek)
+- produk-vivorti.html  : semua model Vivorti (kartu produk + blok UKURAN milik Vivorti)
+- produk-zecco.html    : semua model Zecco (kartu produk + blok UKURAN milik Zecco)
+- css/produk-tema.css  : warna biru halaman produk, disamakan dengan beranda (ubah warna di bagian :root paling atas)
+- Menambah produk: salin satu blok <article class="pcard"> di halaman mereknya, tambahkan ukurannya di blok UKURAN halaman yang sama, lalu jalankan bangun-artikel.bat.

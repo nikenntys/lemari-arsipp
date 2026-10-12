@@ -40,7 +40,7 @@ nav = rel(nav).replace('class="navbar"', 'class="navbar scrolled"', 1).replace('
 nav = nav.replace('<a href="../artikel.html">', '<a href="../artikel.html" aria-current="page">', 1)
 # data produk (foto, nama, jenis) dibaca dari kartu produk di index.html
 PR = {m.group(1): dict(img=m.group(2), type=m.group(3), name=m.group(4)) for m in re.finditer(
-    r'<article class="pcard" id="(\w+)">.*?<img src="([^"]+)" alt="[^"]*".*?<span class="ptype">(.*?)</span><h4>(.*?)</h4>', rd('produk.html'), re.S)}
+    r'<article class="pcard" id="(\w+)">.*?<img src="([^"]+)" alt="[^"]*".*?<span class="ptype">(.*?)</span><h4>(.*?)</h4>', rd('produk-vivorti.html') + rd('produk-zecco.html'), re.S)}
 def prods(a): return [dict(PR[i], id=i) for i in a.get('produk', []) if i in PR]
 foot = rel(re.search(r'<footer class="footer">.*?</footer>', index, re.S).group(0))
 
@@ -106,7 +106,7 @@ for a in A:
     more = ''.join(card(o) for o in [x for x in A if x['slug'] != a['slug']][:6])
     pp = prods(a)
     figs = ('<div class="a-figs"><p class="lbl">Produk yang dibahas</p><div class="a-figrow">' + ''.join(
-        f'<a href="../produk.html#{p["id"]}"><img src="../{p["img"]}" alt="{esc(p["name"])} - {esc(p["type"])}" loading="lazy"><b>{p["name"]}</b><small>{p["type"]}</small></a>' for p in pp) + '</div></div>') if pp else ''
+        f'<a href="../produk-{'vivorti' if p['id'][0] == 'v' else 'zecco'}.html#{p["id"]}"><img src="../{p["img"]}" alt="{esc(p["name"])} - {esc(p["type"])}" loading="lazy"><b>{p["name"]}</b><small>{p["type"]}</small></a>' for p in pp) + '</div></div>') if pp else ''
     nx = A[(A.index(a) + 1) % len(A)]
     nxt = f'<a class="next-art" href="{nx["slug"]}.html"><span>Baca artikel berikutnya</span><b>{nx["title"]}</b><i>&rarr;</i></a>' if len(A) > 1 else ''
     page = TPL
@@ -126,7 +126,7 @@ artikel_html = rd('artikel.html')
 artikel_html = re.sub(r'<script type="application/ld\+json">(?:(?!</script>).)*"BlogPosting"(?:(?!</script>).)*</script>', lambda m: new_ld, artikel_html, 1, re.S)
 wr('artikel.html', artikel_html)
 urls = f'  <url><loc>{DOMAIN}</loc><lastmod>{A[0]["iso"]}</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>\n' + ''.join(
-    f'  <url><loc>{DOMAIN}{pg}</loc><lastmod>{A[0]["iso"]}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>\n' for pg in ('produk.html', 'portofolio.html', 'artikel.html', 'kontak.html')) + ''.join(
+    f'  <url><loc>{DOMAIN}{pg}</loc><lastmod>{A[0]["iso"]}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>\n' for pg in ('produk.html', 'produk-vivorti.html', 'produk-zecco.html', 'portofolio.html', 'artikel.html', 'kontak.html')) + ''.join(
     f'  <url><loc>{DOMAIN}artikel/{a["slug"]}.html</loc><lastmod>{a["iso"]}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>\n' for a in A)
 wr('sitemap.xml', f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n')
 print(f'Selesai: {len(A)} halaman artikel dibuat di folder artikel/')
