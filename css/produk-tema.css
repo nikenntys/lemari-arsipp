@@ -7,7 +7,7 @@
   --pt-blue-b:#5a9af0;        /* akhir gradasi */
   --pt-tint:#dbe9fd;          /* biru muda untuk teks di atas biru */
   --pt-ink:#22314a;           /* judul */
-  --pt-text:#6b778b;          /* teks isi */
+  --pt-text:#4a566d;          /* teks isi */
   --pt-bg:#f6f8fb;           /* latar lembut */
   --pt-line:rgba(47,111,214,.14);
   --pt-shadow:0 14px 34px rgba(47,111,214,.10);
@@ -27,7 +27,7 @@
 .pcard .pbody h4{color:var(--pt-ink) !important}
 .pcard .pbody p{color:var(--pt-text) !important}
 .pcard .ptype{color:var(--pt-blue) !important;background:rgba(47,111,214,.08);border:1px solid rgba(47,111,214,.28);border-radius:999px;padding:4px 11px;display:inline-block}
-.pcard dl dt{color:#8993a3 !important}
+.pcard dl dt{color:#5f6b82 !important}
 .pcard dl dd{color:var(--pt-ink) !important}
 
 /* ---------- Deretan ukuran ---------- */
@@ -48,19 +48,19 @@
 .bp-card:hover{transform:translateY(-4px);border-color:rgba(47,111,214,.40);box-shadow:var(--pt-shadow)}
 .bp-logo{display:flex;align-items:center;justify-content:center;min-height:130px;border-radius:18px;background:linear-gradient(160deg,#eaf2fe 0%,#cfe0fb 100%)}
 .bp-logo img{max-width:70%;max-height:90px;width:auto;height:auto}
-.bp-card h2{margin:0;color:var(--pt-ink);font-size:1.6rem;letter-spacing:-.02em}
-.bp-card p{margin:0;color:var(--pt-text);line-height:1.8;font-size:.95rem}
+.bp-card h2{margin:0;color:var(--pt-ink);font-size:2.36rem;letter-spacing:-.02em}
+.bp-card p{margin:0;color:var(--pt-text);line-height:1.8;font-size:1.16rem}
 .bp-models{display:flex;flex-wrap:wrap;gap:8px}
-.bp-models span{padding:5px 12px;border-radius:999px;background:rgba(47,111,214,.08);border:1px solid rgba(47,111,214,.22);color:var(--pt-blue);font-weight:600;font-size:0.85rem}
-.bp-go{margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-radius:12px;background:linear-gradient(150deg,var(--pt-blue-a),var(--pt-blue-b));color:#fff;font-weight:600;font-size:.92rem}
+.bp-models span{padding:5px 12px;border-radius:999px;background:rgba(47,111,214,.08);border:1px solid rgba(47,111,214,.22);color:var(--pt-blue);font-weight:600;font-size:1.04rem}
+.bp-go{margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-radius:12px;background:linear-gradient(150deg,var(--pt-blue-a),var(--pt-blue-b));color:#fff;font-weight:600;font-size:1.12rem}
 .bp-go i{font-style:normal;transition:transform .25s}
 .bp-card:hover .bp-go i{transform:translateX(5px)}
 @media(max-width:800px){.brand-pick{grid-template-columns:1fr}.bp-card{padding:24px}}
 
 /* ---------- Tautan antar merek dan remah roti ---------- */
 .brand-switch{text-align:center;margin-top:8px;color:var(--pt-text)}
-.brand-switch a{display:inline-block;margin-left:8px;padding:8px 16px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.88rem}
-#produk .crumbs{margin-bottom:22px;color:var(--pt-text);font-size:.86rem}
+.brand-switch a{display:inline-block;margin-left:8px;padding:8px 16px;border-radius:999px;text-decoration:none;font-weight:600;font-size:0.97rem}
+#produk .crumbs{margin-bottom:22px;color:var(--pt-text);font-size:1.04rem}
 #produk .crumbs a{color:var(--pt-blue);text-decoration:none}
 #produk .crumbs span{margin:0 8px;opacity:.5}
 

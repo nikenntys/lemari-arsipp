@@ -15,6 +15,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/images/logo.svg"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/produk-tema.css">
+<style>
+/* Hero: foto dan pola gradasi tetap, warna lapisan diganti jadi biru #4c8ee9 */
+.hero[data-bg]::before{background:linear-gradient(90deg,rgba(76,142,233,.93) 0%,rgba(76,142,233,.78) 40%,rgba(76,142,233,.24) 100%),linear-gradient(0deg,rgba(60,120,215,.55),transparent 38%)!important}
+@media(max-width:900px){.hero[data-bg]::before{background:linear-gradient(180deg,rgba(76,142,233,.9),rgba(76,142,233,.74))!important}}
+</style>
 </head>
 <body>
 <header class="navbar" id="top"><div class="nav-inner">

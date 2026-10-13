@@ -18,30 +18,73 @@
 <link rel="icon" href="assets/images/logo.svg"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/home.css"><link rel="stylesheet" href="css/produk-tema.css">
 <style>
 /* ===== Produk: 5 model per merek, deretan 10 ukuran, jendela detail ===== */
-/* Susunan 5 kartu: 3 di baris pertama, 2 lebih lebar di baris kedua */
+/* Susunan 5 kartu rapat tanpa kartu lebar yang menyisakan ruang kosong */
 @media(min-width:1201px){
+  .pgrid{grid-template-columns:repeat(5,1fr);gap:18px}
+  .pcard,.pcard:nth-child(n+4){grid-column:auto}
+  .thumb img{height:320px}
+}
+@media(min-width:901px) and (max-width:1200px){
   .pgrid{grid-template-columns:repeat(6,1fr)}
   .pcard{grid-column:span 2}
-  .pcard:nth-child(n+4){grid-column:span 3}
+  .pcard:nth-child(4){grid-column:2/4}.pcard:nth-child(5){grid-column:4/6}
 }
-@media(min-width:601px) and (max-width:1200px){.pcard:last-child:nth-child(odd){grid-column:1/-1}}
+@media(min-width:601px) and (max-width:900px){
+  .pgrid{grid-template-columns:repeat(4,1fr)}
+  .pcard{grid-column:span 2}
+  .pcard:last-child:nth-child(odd){grid-column:2/4}
+}
 
-/* Foto utama + deretan ukuran di bawahnya */
-.thumb{flex-direction:column;align-items:center}
-.sizes{width:100%;max-width:340px;margin-top:18px;display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
-.sz{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 2px 5px;border-radius:4px;cursor:pointer;
-  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);color:#c3d2ee;font:inherit;transition:background .2s,border-color .2s}
-.sz:hover{background:rgba(255,255,255,.14)}
-.sz[aria-pressed=true]{border-color:var(--gold);background:rgba(200,169,106,.18);color:#fff}
-.szi{height:44px;width:100%;display:flex;align-items:flex-end;justify-content:center}
-.pcard .thumb .szi img{width:auto;max-width:90%;filter:none;transition:none}
-.pcard:hover .thumb .szi img{transform:none}
-.szl{font-size:0.85rem;letter-spacing:.02em;white-space:nowrap}
-.sz-open{display:block;text-align:center;text-decoration:none;margin-top:14px;width:100%;max-width:340px;padding:11px 16px;border-radius:4px;cursor:pointer;font:inherit;font-size:.86rem;font-weight:500;
-  color:#fff;background:transparent;border:1px solid var(--gold);transition:background .2s}
-.sz-open:hover{background:rgba(200,169,106,.2)}
-.sz:focus-visible,.sz-open:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+/* Foto produk rapat + tombol lihat detail */
+.thumb{flex-direction:column;align-items:center;justify-content:flex-end;padding:10px 14px 14px}
+.thumb img{height:300px;width:auto;max-width:100%;object-fit:contain;margin:0}
+.sz-open{display:block;text-align:center;text-decoration:none;margin-top:8px;width:100%;padding:11px 16px;border-radius:10px;cursor:pointer;font:inherit;font-size:.86rem;font-weight:600}
+.pbody{padding:18px 22px 22px}
+.sz-open:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 
+</style>
+<style>
+/* Hero: foto dan pola gradasi tetap, warna lapisan diganti jadi biru #4c8ee9 */
+.hero[data-bg]::before{background:linear-gradient(90deg,rgba(76,142,233,.93) 0%,rgba(76,142,233,.78) 40%,rgba(76,142,233,.24) 100%),linear-gradient(0deg,rgba(60,120,215,.55),transparent 38%)!important}
+@media(max-width:900px){.hero[data-bg]::before{background:linear-gradient(180deg,rgba(76,142,233,.9),rgba(76,142,233,.74))!important}}
+</style>
+<style>
+/* Produk: tampil 3 dulu, sisanya lewat tombol "Lihat lainnya" */
+@media(min-width:901px){
+  .brand-block .pgrid{grid-template-columns:repeat(6,1fr);gap:24px}
+  .brand-block .pgrid .pcard{grid-column:span 2}
+  .brand-block .pgrid .pcard:nth-child(4){grid-column:2/4}
+  .brand-block .pgrid .pcard:nth-child(5){grid-column:4/6}
+}
+@media(min-width:601px) and (max-width:900px){
+  .pgrid.ringkas .pcard:nth-child(3){grid-column:2/4}
+}
+.pgrid.ringkas .pcard:nth-child(n+4){display:none}
+@keyframes pcard-muncul{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:no-preference){
+  .pgrid.baru .pcard:nth-child(n+4){animation:pcard-muncul .7s cubic-bezier(.2,.8,.2,1) backwards}
+  .pgrid.baru .pcard:nth-child(5){animation-delay:.12s}
+}
+
+/* Tombol Lihat lainnya: garis tipis di kiri-kanan, tombol pil biru dengan lingkaran emas */
+.lihat-lain{display:flex;align-items:center;gap:22px;margin:44px auto 0;max-width:760px}
+.lihat-lain::before,.lihat-lain::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(11,31,74,.22))}
+.lihat-lain::after{background:linear-gradient(270deg,transparent,rgba(11,31,74,.22))}
+.lihat-lain button{position:relative;display:inline-flex;align-items:center;gap:14px;padding:8px 8px 8px 28px;border:0;border-radius:999px;background:linear-gradient(135deg,#0b1f4a 0%,#173a78 55%,#2f6fd6 100%);color:#fff;font:inherit;font-size:.95rem;font-weight:600;letter-spacing:.01em;cursor:pointer;box-shadow:0 12px 28px rgba(11,31,74,.28),inset 0 1px 0 rgba(255,255,255,.18);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.lihat-lain button:hover{transform:translateY(-3px);box-shadow:0 18px 36px rgba(11,31,74,.34),inset 0 1px 0 rgba(255,255,255,.22)}
+.lihat-lain button:active{transform:translateY(-1px)}
+.lihat-lain button:focus-visible{outline:2px solid #c8a96a;outline-offset:4px}
+.ll-jml{padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.16);font-size:.78rem;font-weight:600;letter-spacing:.02em}
+.lihat-lain button[aria-expanded=true] .ll-jml{display:none}
+.ll-ikon{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#dcc48d,#c8a96a 55%,#b18f4c);color:#0b1f4a;box-shadow:0 4px 12px rgba(0,0,0,.25);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.ll-ikon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s}
+.lihat-lain button:hover .ll-ikon{transform:translateY(2px)}
+.lihat-lain button[aria-expanded=true]:hover .ll-ikon{transform:translateY(-2px)}
+.lihat-lain button[aria-expanded=true] .ll-ikon svg{transform:rotate(180deg)}
+[data-theme=dark] .lihat-lain::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,.22))}
+[data-theme=dark] .lihat-lain::after{background:linear-gradient(270deg,transparent,rgba(255,255,255,.22))}
+[data-theme=dark] .lihat-lain button{background:linear-gradient(135deg,#2f6fd6 0%,#3f82e4 55%,#4c8ee9 100%);box-shadow:0 12px 28px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.25)}
+@media(max-width:560px){.lihat-lain{gap:14px}.lihat-lain button{padding:7px 7px 7px 22px;font-size:.9rem}.ll-ikon{width:34px;height:34px}}
 </style>
 </head>
 <body>
@@ -58,24 +101,23 @@
 <div class="wrap hero-text"><h1>Lemari arsip besi Zecco</h1><p>Pintu geser, pintu kaca, rolling door, dan filing cabinet dengan rak adjustable yang hemat ruang.</p></div></section>
 <section class="section" id="produk"><div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Beranda</a><span>/</span><a href="produk.html">Produk</a><span>/</span>Zecco</nav>
 <!-- BLOK MEREK ZECCO. Struktur sama dengan Vivorti. -->
-<div class="brand-block" id="zecco"><div class="brand-head"><img src="assets/images/Logo Zeco - Sticker (1).png" alt="Logo Zecco" width="300" height="76"><p>Lemari pintu geser dengan rak adjustable untuk penyimpanan arsip yang rapi dan hemat ruang.</p></div><div class="pgrid"><article class="pcard" id="zs2"><div class="thumb"><img src="assets/images/zeco-1.png" alt="Zecco ZS-2 Lemari 2 pintu geser - lemari arsip besi merek Zecco" width="420" height="520" loading="lazy"><div class="sizes" role="group" aria-label="Pilihan ukuran"></div><a class="sz-open" href="produk/zs2.html">Lihat ukuran &amp; detail</a></div>
-<div class="pbody"><span class="ptype">Lemari 2 pintu geser</span><h4>Zecco ZS-2</h4><p>Lemari pintu geser dengan rak tinggi yang bisa diatur. Tidak memakan area buka pintu.</p><dl><div><dt>Ukuran</dt><dd>88 x 40 x 180 cm</dd></div><div><dt>Kunci</dt><dd>Kunci pintu</dd></div><div class="full"><dt>Cocok untuk</dt><dd>Sekolah, dinas, gudang arsip</dd></div></dl>
-<a href="kontak.html?produk=Zecco+ZS-2" class="btn btn-primary btn-sm" data-produk="Zecco ZS-2">Tanya harga Zecco ZS-2</a></div></article><article class="pcard" id="zk2"><div class="thumb"><img src="assets/images/zeco-2.png" alt="Zecco ZK-2 Lemari pintu geser kaca - lemari arsip besi merek Zecco" width="420" height="520" loading="lazy"><div class="sizes" role="group" aria-label="Pilihan ukuran"></div><a class="sz-open" href="produk/zk2.html">Lihat ukuran &amp; detail</a></div>
-<div class="pbody"><span class="ptype">Lemari pintu geser kaca</span><h4>Zecco ZK-2</h4><p>Lemari pintu geser kaca yang memadukan kemudahan akses dan penyimpanan dokumen dalam desain yang ringkas.</p><dl><div><dt>Ukuran</dt><dd>88 x 40 x 180 cm</dd></div><div><dt>Kunci</dt><dd>Kunci pintu</dd></div><div class="full"><dt>Cocok untuk</dt><dd>Perpustakaan, kantor, ruang tamu</dd></div></dl>
-<a href="kontak.html?produk=Zecco+ZK-2" class="btn btn-primary btn-sm" data-produk="Zecco ZK-2">Tanya harga Zecco ZK-2</a></div></article><article class="pcard" id="zr3"><div class="thumb"><img src="assets/images/zeco-3.png" alt="Zecco ZR-3 Lemari rolling door - lemari arsip besi merek Zecco" width="420" height="520" loading="lazy"><div class="sizes" role="group" aria-label="Pilihan ukuran"></div><a class="sz-open" href="produk/zr3.html">Lihat ukuran &amp; detail</a></div>
-<div class="pbody"><span class="ptype">Lemari rolling door</span><h4>Zecco ZR-3</h4><p>Lemari arsip kaca berkapasitas besar untuk kebutuhan penyimpanan dokumen dan perlengkapan kantor yang lebih terorganisir.</p><dl><div><dt>Ukuran</dt><dd>90 x 40 x 180 cm</dd></div><div><dt>Kunci</dt><dd>Kunci rolling</dd></div><div class="full"><dt>Cocok untuk</dt><dd>Gudang arsip, ruang sempit</dd></div></dl>
-<a href="kontak.html?produk=Zecco+ZR-3" class="btn btn-primary btn-sm" data-produk="Zecco ZR-3">Tanya harga Zecco ZR-3</a></div></article><article class="pcard" id="zf3"><div class="thumb"><img src="assets/images/zeco-4.png" alt="Zecco ZF-3 Filing cabinet 3 laci - lemari arsip besi merek Zecco" width="420" height="520" loading="lazy"><div class="sizes" role="group" aria-label="Pilihan ukuran"></div><a class="sz-open" href="produk/zf3.html">Lihat ukuran &amp; detail</a></div>
-<div class="pbody"><span class="ptype">Filing cabinet 3 laci</span><h4>Zecco ZF-3</h4><p>Lemari arsip modern dengan rak penyimpanan luas yang memudahkan penataan dan pencarian dokumen penting.</p><dl><div><dt>Ukuran</dt><dd>46 x 62 x 102 cm</dd></div><div><dt>Kunci</dt><dd>Kunci sentral</dd></div><div class="full"><dt>Cocok untuk</dt><dd>Kantor, sekolah, toko</dd></div></dl>
-<a href="kontak.html?produk=Zecco+ZF-3" class="btn btn-primary btn-sm" data-produk="Zecco ZF-3">Tanya harga Zecco ZF-3</a></div></article><article class="pcard" id="zb3"><div class="thumb"><img src="assets/images/zeco-5.png" alt="Zecco ZB-3 Lemari 3 pintu geser - lemari arsip besi" width="420" height="520" loading="lazy"><div class="sizes" role="group" aria-label="Pilihan ukuran"></div><a class="sz-open" href="produk/zb3.html">Lihat ukuran &amp; detail</a></div>
-<div class="pbody"><span class="ptype">Lemari 3 pintu geser</span><h4>Zecco ZB-3</h4><p>Lemari tiga pintu geser dengan rak adjustable untuk arsip dalam jumlah besar tanpa memakan area buka pintu.</p><dl><div><dt>Ukuran</dt><dd>135 x 40 x 180 cm</dd></div><div><dt>Kunci</dt><dd>Kunci pintu</dd></div><div class="full"><dt>Cocok untuk</dt><dd>Dinas, gudang arsip</dd></div></dl>
+<div class="brand-block" id="zecco"><div class="brand-head"><img src="assets/images/Logo Zeco - Sticker (1).png" alt="Logo Zecco" width="300" height="76"><p>Lemari pintu geser dengan rak adjustable untuk penyimpanan arsip yang rapi dan hemat ruang.</p></div><div class="pgrid"><article class="pcard" id="zs2"><div class="thumb"><img src="assets/images/zeco-1.png" alt="Zecco ZS-2 Lemari 2 pintu geser - lemari arsip besi merek Zecco" width="420" height="520" loading="lazy"><a class="sz-open" href="produk/zs2.html">Lihat ukuran &amp; detail</a></div>
+<div class="pbody"><span class="ptype">Lemari 2 pintu geser</span><h4>Zecco ZS-2</h4><p>Lemari pintu geser dengan rak tinggi yang bisa diatur. Tidak memakan area buka pintu.</p>
+<a href="kontak.html?produk=Zecco+ZS-2" class="btn btn-primary btn-sm" data-produk="Zecco ZS-2">Tanya harga Zecco ZS-2</a></div></article><article class="pcard" id="zk2"><div class="thumb"><img src="assets/images/zeco-2.png" alt="Zecco ZK-2 Lemari pintu geser kaca - lemari arsip besi merek Zecco" width="420" height="520" loading="lazy"><a class="sz-open" href="produk/zk2.html">Lihat ukuran &amp; detail</a></div>
+<div class="pbody"><span class="ptype">Lemari pintu geser kaca</span><h4>Zecco ZK-2</h4><p>Lemari pintu geser kaca yang memadukan kemudahan akses dan penyimpanan dokumen dalam desain yang ringkas.</p>
+<a href="kontak.html?produk=Zecco+ZK-2" class="btn btn-primary btn-sm" data-produk="Zecco ZK-2">Tanya harga Zecco ZK-2</a></div></article><article class="pcard" id="zr3"><div class="thumb"><img src="assets/images/zeco-3.png" alt="Zecco ZR-3 Lemari rolling door - lemari arsip besi merek Zecco" width="420" height="520" loading="lazy"><a class="sz-open" href="produk/zr3.html">Lihat ukuran &amp; detail</a></div>
+<div class="pbody"><span class="ptype">Lemari rolling door</span><h4>Zecco ZR-3</h4><p>Lemari arsip kaca berkapasitas besar untuk kebutuhan penyimpanan dokumen dan perlengkapan kantor yang lebih terorganisir.</p>
+<a href="kontak.html?produk=Zecco+ZR-3" class="btn btn-primary btn-sm" data-produk="Zecco ZR-3">Tanya harga Zecco ZR-3</a></div></article><article class="pcard" id="zf3"><div class="thumb"><img src="assets/images/zeco-4.png" alt="Zecco ZF-3 Filing cabinet 3 laci - lemari arsip besi merek Zecco" width="420" height="520" loading="lazy"><a class="sz-open" href="produk/zf3.html">Lihat ukuran &amp; detail</a></div>
+<div class="pbody"><span class="ptype">Filing cabinet 3 laci</span><h4>Zecco ZF-3</h4><p>Lemari arsip modern dengan rak penyimpanan luas yang memudahkan penataan dan pencarian dokumen penting.</p>
+<a href="kontak.html?produk=Zecco+ZF-3" class="btn btn-primary btn-sm" data-produk="Zecco ZF-3">Tanya harga Zecco ZF-3</a></div></article><article class="pcard" id="zb3"><div class="thumb"><img src="assets/images/zeco-5.png" alt="Zecco ZB-3 Lemari 3 pintu geser - lemari arsip besi" width="420" height="520" loading="lazy"><a class="sz-open" href="produk/zb3.html">Lihat ukuran &amp; detail</a></div>
+<div class="pbody"><span class="ptype">Lemari 3 pintu geser</span><h4>Zecco ZB-3</h4><p>Lemari tiga pintu geser dengan rak adjustable untuk arsip dalam jumlah besar tanpa memakan area buka pintu.</p>
 <a href="kontak.html?produk=Zecco+ZB-3" class="btn btn-primary btn-sm" data-produk="Zecco ZB-3">Tanya harga Zecco ZB-3</a></div></article></div></div><p class="brand-switch">Cari merek lain? <a href="produk-vivorti.html">Lihat produk Vivorti &rarr;</a></p></div></section>
-<section class="cta" data-bg="assets/images/bg/cta-1.jpg,assets/images/bg/cta-2.jpg" data-interval="8000"><div class="bg-slides"><span class="on" style="background-image:url('assets/images/bg/cta-1.jpg')"></span></div><div class="wrap cta-inner"><div><h2>Bingung memilih merek, model, atau jumlah?</h2><p>Kirim denah ruangan dan perkiraan jumlah berkas, kami rekomendasikan modelnya.</p></div><a href="kontak.html" class="btn btn-light">Konsultasi Sekarang</a></div></section>
 </main>
-<footer class="footer"><div class="wrap foot-grid">
-<div><a href="index.html" class="brand" aria-label="CV Cahaya Mustika"><img src="assets/images/LOGO CMI.png" alt="CV Cahaya Mustika" width="220" height="56"></a><p>CV Cahaya Mustika, distributor lemari arsip merek Vivorti dan Zecco di Malang, melayani pengiriman ke seluruh Indonesia.</p></div>
-<div><b>Vivorti</b><a href="produk-vivorti.html#vf2">Vivorti VF-2</a><a href="produk-vivorti.html#vf4">Vivorti VF-4</a><a href="produk-vivorti.html#vp2">Vivorti VP-2</a><a href="produk-vivorti.html#vl6">Vivorti VL-6</a></div>
-<div><b>Zecco</b><a href="produk-zecco.html#zs2">Zecco ZS-2</a><a href="produk-zecco.html#zk2">Zecco ZK-2</a><a href="produk-zecco.html#zr3">Zecco ZR-3</a><a href="produk-zecco.html#zf3">Zecco ZF-3</a></div>
-<div><b>Perusahaan</b><a href="portofolio.html">Portofolio</a><a href="artikel.html">Artikel</a><a href="index.html#faq">Tanya Jawab</a><a href="kontak.html">Kontak Kami</a></div></div>
+<footer class="footer"><div class="wrap foot-brand"><a href="index.html" class="brand" aria-label="CV Cahaya Mustika"><img src="assets/images/LOGO CMI.png" alt="CV Cahaya Mustika" width="220" height="56"></a><p>CV Cahaya Mustika, distributor lemari arsip merek Vivorti dan Zecco di Malang, melayani pengiriman ke seluruh Indonesia.</p></div>
+<div class="wrap foot-grid">
+<div><b>Produk</b><a href="produk-vivorti.html">Vivorti</a><a href="produk-zeco.html">Zecco</a></div>
+<div><b>Informasi Perusahaan</b><a href="index.html">Beranda</a><a href="portofolio.html">Portofolio</a><a href="artikel.html">Artikel</a><a href="index.html#faq">Tanya Jawab</a></div>
+<div><b>Kontak Kami</b><a href="https://wa.me/ 0811-330-1819" target="_blank" rel="noopener" class="fk"><span>WhatsApp</span><strong> 0811-330-1819</strong></a><a href="https://www.google.com/maps/search/?api=1&query=Malang%2C+Jawa+Timur" target="_blank" rel="noopener" class="fk"><span>Lokasi</span><strong>Malang, Jawa Timur</strong><em>Lihat di Google Maps</em></a></div></div>
 <div class="wrap copy">&copy; 2026 CV Cahaya Mustika. Semua hak dilindungi.</div></footer>
 <script src="js/kamus-en.js"></script><script src="js/prefs.js"></script><script src="js/latar.js"></script><script src="js/script.js"></script>
 <script>
@@ -100,28 +142,50 @@
   function pilih(card, i, ubahTeks) {
     card.dataset.i = i;
     card.querySelectorAll('.sz').forEach((b, k) => b.setAttribute('aria-pressed', k === i));
-    const dd = card.querySelector('.pbody dl dd');
-    if (ubahTeks && dd) dd.textContent = UKURAN[card.id][i] + ' cm';
     const a = card.querySelector('.sz-open');
     if (a) a.setAttribute('href', 'produk/' + card.id + '.html?u=' + i);
   }
 
-  // Deretan 10 gambar kecil di bawah foto utama tiap kartu
+  // Tautan "Lihat ukuran & detail" mengarah ke halaman detail model
   cards.forEach(card => {
-    const list = UKURAN[card.id], box = card.querySelector('.sizes'), src = card.querySelector('.thumb > img').getAttribute('src');
-    const maxT = Math.max(...list.map(s => parse(s)[2]));
-    list.forEach((s, k) => {
-      const [w, , t] = parse(s), b = document.createElement('button');
-      b.type = 'button'; b.className = 'sz'; b.title = s + ' cm';
-      b.setAttribute('aria-label', T('Ukuran') + ' ' + s + ' cm');
-      b.innerHTML = '<span class="szi"><img src="' + src + '" alt="" loading="lazy" style="height:' + Math.round(t / maxT * 100) + '%"></span><span class="szl">' + w + '\u00d7' + t + '</span>';
-      b.addEventListener('click', () => pilih(card, k, true));
-      box.appendChild(b);
-    });
-    const awal = list.findIndex(s => s + ' cm' === (card.querySelector('.pbody dl dd') || {}).textContent);
-    pilih(card, awal < 0 ? 0 : awal, false);
+    const list = UKURAN[card.id];
+    pilih(card, Math.min(3, list.length - 1), false);
   });
   if (window.CM) CM.apply();
+})();
+</script>
+<script>
+/* "Lihat lainnya": kartu ke-4 dan seterusnya disembunyikan sampai tombol diklik.
+   Tanpa JavaScript semua kartu tetap tampil. Ubah angka 3 di bawah untuk mengatur jumlah awal. */
+(function () {
+  var AWAL = 3;
+  var grid = document.querySelector('.pgrid'); if (!grid) return;
+  var kartu = grid.querySelectorAll('.pcard'); if (kartu.length <= AWAL) return;
+  var box = document.createElement('div'); box.className = 'lihat-lain';
+  var btn = document.createElement('button'); btn.type = 'button';
+  btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', 'daftar-produk');
+  btn.innerHTML = '<span class="ll-teks"></span><span class="ll-jml">+' + (kartu.length - AWAL) + '</span>' +
+    '<span class="ll-ikon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span>';
+  box.appendChild(btn);
+  var teks = btn.querySelector('.ll-teks');
+  grid.id = 'daftar-produk'; grid.parentNode.insertBefore(box, grid.nextSibling);
+  var T = function (s) { return window.CM && CM.t ? CM.t(s) : s; };
+  function atur(buka, animasi) {
+    grid.classList.toggle('ringkas', !buka);
+    grid.classList.toggle('baru', !!(buka && animasi));
+    btn.setAttribute('aria-expanded', buka);
+    teks.textContent = T(buka ? 'Tampilkan lebih sedikit' : 'Lihat lainnya');
+  }
+  btn.addEventListener('click', function () { atur(btn.getAttribute('aria-expanded') !== 'true', true); });
+  atur(false);
+  // Tautan seperti produk-vivorti.html#vl6 harus membuka kartu yang tersembunyi
+  function dariTautan() {
+    var id = decodeURIComponent(location.hash.slice(1)), el = id && document.getElementById(id);
+    if (el && grid.contains(el) && el.classList.contains('pcard') && Array.prototype.indexOf.call(kartu, el) >= AWAL) {
+      atur(true, false); el.scrollIntoView({block: 'center'});
+    }
+  }
+  dariTautan(); addEventListener('hashchange', dariTautan);
 })();
 </script>
 </body></html>

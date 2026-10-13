@@ -57,8 +57,8 @@ if (form) {
     const f = new FormData(form);
     const en = window.CM && CM.lang === 'en';
     const text = en
-      ? `Hello CV Cahaya Mustika, I am ${f.get('nama')} (${f.get('wa')}).\nI am buying as ${f.get('peran')} and am interested in ${f.get('produk')}.\n${f.get('pesan')}`
-      : `Halo CV Cahaya Mustika, saya ${f.get('nama')} (${f.get('wa')}).\nSaya membeli sebagai ${f.get('peran')} dan tertarik dengan ${f.get('produk')}.\n${f.get('pesan')}`;
+      ? `Hello Cahaya Mustika Internesia, I am ${f.get('nama')} (${f.get('wa')}).\nI am buying as ${f.get('peran')} and am interested in ${f.get('produk')}.\n${f.get('pesan')}`
+      : `Halo Cahaya Mustika Internesia, saya ${f.get('nama')} (${f.get('wa')}).\nSaya membeli sebagai ${f.get('peran')} dan tertarik dengan ${f.get('produk')}.\n${f.get('pesan')}`;
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
   });
 }
