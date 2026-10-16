@@ -44,52 +44,82 @@
 
 </style>
 <style>
-/* Hero: foto dan pola gradasi tetap, warna lapisan diganti jadi biru #4c8ee9 */
-.hero[data-bg]::before{background:linear-gradient(90deg,rgba(76,142,233,.93) 0%,rgba(76,142,233,.78) 40%,rgba(76,142,233,.24) 100%),linear-gradient(0deg,rgba(60,120,215,.55),transparent 38%)!important}
-@media(max-width:900px){.hero[data-bg]::before{background:linear-gradient(180deg,rgba(76,142,233,.9),rgba(76,142,233,.74))!important}}
+/* Hero: foto dan pola gradasi tetap, warna lapisan diganti jadi biru tua elegan */
+.hero[data-bg]::before{background:linear-gradient(90deg,rgba(9,32,88,.96) 0%,rgba(16,50,122,.88) 40%,rgba(40,92,184,.36) 100%),linear-gradient(0deg,rgba(5,18,52,.72),transparent 38%)!important}
+.hero[data-bg] h1{text-shadow:0 2px 18px rgba(8,26,70,.45)}
+.hero[data-bg] p{color:#e3ecfb;text-shadow:0 1px 12px rgba(8,26,70,.40)}
+@media(max-width:900px){.hero[data-bg]::before{background:linear-gradient(180deg,rgba(9,32,88,.94),rgba(16,50,122,.84))!important}}
 </style>
 <style>
-/* Produk: tampil 3 dulu, sisanya lewat tombol "Lihat lainnya" */
+/* Produk: 5 kartu tampil langsung (3 di baris pertama, 2 di tengah baris kedua) */
 @media(min-width:901px){
   .brand-block .pgrid{grid-template-columns:repeat(6,1fr);gap:24px}
   .brand-block .pgrid .pcard{grid-column:span 2}
   .brand-block .pgrid .pcard:nth-child(4){grid-column:2/4}
   .brand-block .pgrid .pcard:nth-child(5){grid-column:4/6}
 }
-@media(min-width:601px) and (max-width:900px){
-  .pgrid.ringkas .pcard:nth-child(3){grid-column:2/4}
-}
-.pgrid.ringkas .pcard:nth-child(n+4){display:none}
-@keyframes pcard-muncul{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:no-preference){
-  .pgrid.baru .pcard:nth-child(n+4){animation:pcard-muncul .7s cubic-bezier(.2,.8,.2,1) backwards}
-  .pgrid.baru .pcard:nth-child(5){animation-delay:.12s}
-}
-
-/* Tombol Lihat lainnya: garis tipis di kiri-kanan, tombol pil biru dengan lingkaran emas */
-.lihat-lain{display:flex;align-items:center;gap:22px;margin:44px auto 0;max-width:760px}
-.lihat-lain::before,.lihat-lain::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(11,31,74,.22))}
-.lihat-lain::after{background:linear-gradient(270deg,transparent,rgba(11,31,74,.22))}
-.lihat-lain button{position:relative;display:inline-flex;align-items:center;gap:14px;padding:8px 8px 8px 28px;border:0;border-radius:999px;background:linear-gradient(135deg,#0b1f4a 0%,#173a78 55%,#2f6fd6 100%);color:#fff;font:inherit;font-size:.95rem;font-weight:600;letter-spacing:.01em;cursor:pointer;box-shadow:0 12px 28px rgba(11,31,74,.28),inset 0 1px 0 rgba(255,255,255,.18);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
-.lihat-lain button:hover{transform:translateY(-3px);box-shadow:0 18px 36px rgba(11,31,74,.34),inset 0 1px 0 rgba(255,255,255,.22)}
-.lihat-lain button:active{transform:translateY(-1px)}
-.lihat-lain button:focus-visible{outline:2px solid #c8a96a;outline-offset:4px}
-.ll-jml{padding:3px 10px;border-radius:999px;background:rgba(255,255,255,.16);font-size:.78rem;font-weight:600;letter-spacing:.02em}
-.lihat-lain button[aria-expanded=true] .ll-jml{display:none}
-.ll-ikon{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#dcc48d,#c8a96a 55%,#b18f4c);color:#0b1f4a;box-shadow:0 4px 12px rgba(0,0,0,.25);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-.ll-ikon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s}
-.lihat-lain button:hover .ll-ikon{transform:translateY(2px)}
-.lihat-lain button[aria-expanded=true]:hover .ll-ikon{transform:translateY(-2px)}
-.lihat-lain button[aria-expanded=true] .ll-ikon svg{transform:rotate(180deg)}
-[data-theme=dark] .lihat-lain::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,.22))}
-[data-theme=dark] .lihat-lain::after{background:linear-gradient(270deg,transparent,rgba(255,255,255,.22))}
-[data-theme=dark] .lihat-lain button{background:linear-gradient(135deg,#2f6fd6 0%,#3f82e4 55%,#4c8ee9 100%);box-shadow:0 12px 28px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.25)}
-@media(max-width:560px){.lihat-lain{gap:14px}.lihat-lain button{padding:7px 7px 7px 22px;font-size:.9rem}.ll-ikon{width:34px;height:34px}}
+</style>
+<style id="cta-akhir-css">
+/* CTA penutup: gradasi biru tua seperti tombol "Lihat lainnya", aksen emas */
+.cta-akhir{padding:24px 0 80px}
+.cta-box{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:38px 46px;border-radius:24px;background:linear-gradient(135deg,#0b1f4a 0%,#173a78 55%,#2f6fd6 100%);color:#fff;box-shadow:0 18px 44px rgba(11,31,74,.24)}
+.cta-box::after{content:"";position:absolute;right:-70px;top:-90px;width:230px;height:230px;border:1px solid rgba(255,255,255,.14);border-radius:50%;pointer-events:none}
+.cta-teks,.cta-aksi{position:relative;z-index:1}
+.cta-teks h2{margin:0 0 8px;color:#fff;font:700 clamp(22px,2.4vw,30px)/1.3 Poppins,sans-serif;letter-spacing:-.01em}
+.cta-teks p{margin:0;max-width:560px;color:rgba(255,255,255,.82);font-size:16px;line-height:1.65}
+.cta-aksi{display:flex;flex-wrap:wrap;gap:12px;flex-shrink:0}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font:600 15px/1.2 Poppins,sans-serif;text-decoration:none;white-space:nowrap;transition:transform .25s ease,background .25s ease,color .25s ease,box-shadow .25s ease}
+.cta-btn i{font-style:normal;transition:transform .25s ease}
+.cta-btn:hover{transform:translateY(-2px)}
+.cta-btn:hover i{transform:translateX(3px)}
+.cta-btn:focus-visible{outline:2px solid #c8a96a;outline-offset:3px}
+.cta-btn.utama{background:linear-gradient(135deg,#dcc48d,#c8a96a 55%,#b18f4c);color:#0b1f4a;box-shadow:0 8px 20px rgba(0,0,0,.22)}
+.cta-btn.kedua{border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.06);color:#fff}
+.cta-btn.kedua:hover{background:#fff;color:#0b1f4a;border-color:#fff}
+[data-theme=dark] .cta-box{background:linear-gradient(135deg,#173a78 0%,#2f6fd6 100%);box-shadow:0 18px 44px rgba(0,0,0,.4)}
+@media(max-width:900px){.cta-box{flex-direction:column;align-items:flex-start;padding:30px 26px}.cta-akhir{padding-bottom:56px}}
+@media(max-width:480px){.cta-aksi{width:100%}.cta-btn{width:100%;justify-content:center}}
+</style>
+<style id="thumb-rapat">
+/* Foto produk: lebih besar & di tengah area foto supaya ruang kosong di atas berkurang */
+.pcard .thumb{justify-content:center !important;padding:14px 14px 14px !important}
+.pcard .thumb img{height:360px !important;margin:0 auto !important}
+@media(min-width:1201px){.pcard .thumb img{height:380px !important}}
+@media(max-width:600px){.pcard .thumb img{height:320px !important}}
+</style>
+<style id="rapat-atas">
+/* Kurangi ruang kosong antara hero dan kartu produk */
+#produk.section{padding-top:28px !important}
+#produk .crumbs{margin:0 0 18px !important}
+#produk .brand-block{margin-top:0 !important}
+</style>
+<style id="aksi-kartu">
+/* Dua tombol sejajar di bawah kartu: Lihat ukuran & detail + Tanya harga */
+.pcard-aksi{display:flex;gap:10px;margin-top:16px}
+.pcard-aksi>a{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;text-align:center;width:auto !important;margin:0 !important;padding:12px 8px !important;border-radius:10px;font-size:.82rem !important;line-height:1.25;white-space:normal}
+/* Kartu muncul saat di-scroll */
+.pcard.pra{opacity:0;transform:translateY(34px)}
+@keyframes kartu-naik{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+.pcard.muncul{animation:kartu-naik .7s cubic-bezier(.22,1,.36,1) backwards}
+@media(prefers-reduced-motion:reduce){.pcard.pra{opacity:1;transform:none}.pcard.muncul{animation:none}}
+</style>
+<style id="aksi-kartu-paksa">
+/* Pastikan dua tombol selalu berdampingan (kiri-kanan), bukan bertumpuk */
+.pcard .pbody .pcard-aksi{display:flex !important;flex-direction:row !important;flex-wrap:nowrap !important;align-items:stretch !important;gap:10px !important;width:100% !important}
+.pcard .pbody .pcard-aksi>a{flex:1 1 0 !important;width:auto !important;min-width:0 !important;max-width:none !important;display:flex !important;align-items:center !important;justify-content:center !important;text-align:center !important;margin:0 !important;box-sizing:border-box !important}
+</style>
+<style id="aksi-detail-css">
+/* Tombol detail memakai kelas sendiri (bukan .sz-open) supaya tidak tertimpa aturan lama */
+.pcard .pbody .pcard-aksi>a.aksi-detail{border:1.5px solid #2f6fd6 !important;background:#fff !important;color:#2f6fd6 !important;font-weight:600 !important;text-decoration:none !important;box-shadow:none !important;cursor:pointer;transition:background .25s ease,color .25s ease,transform .25s ease}
+.pcard .pbody .pcard-aksi>a.aksi-detail:hover{background:#2f6fd6 !important;color:#fff !important;transform:translateY(-2px)}
+.pcard .pbody .pcard-aksi>a.aksi-detail:focus-visible{outline:2px solid #c8a96a;outline-offset:2px}
+[data-theme=dark] .pcard .pbody .pcard-aksi>a.aksi-detail{background:transparent !important;border-color:rgba(255,255,255,.4) !important;color:#eef3fc !important}
+[data-theme=dark] .pcard .pbody .pcard-aksi>a.aksi-detail:hover{background:#2f6fd6 !important;border-color:#2f6fd6 !important;color:#fff !important}
 </style>
 </head>
 <body>
 <header class="navbar" id="top"><div class="nav-inner">
-<a href="index.html" class="brand" aria-label="CV Cahaya Mustika, beranda"><img class="logo-light" src="assets/images/LOGO CMI.png" alt="CV Cahaya Mustika" width="204" height="52"><img class="logo-dark" src="assets/images/LOGO CMI.png" alt="" width="204" height="52"></a>
+<a href="index.html" class="brand" aria-label="Cahaya Mustika Internesia, beranda"><img class="logo-light" src="assets/images/LOGO CMI.png" alt="CV Cahaya Mustika" width="204" height="52"><img class="logo-dark" src="assets/images/LOGO CMI.png" alt="" width="204" height="52"></a>
 <button class="menu-toggle" aria-label="Buka menu" aria-expanded="false"><span></span><span></span><span></span></button>
 <nav class="nav-menu" id="menu"><a href="index.html">Beranda</a>
 <div class="dropdown"><a class="dropdown-btn" href="produk.html" aria-current="page" aria-haspopup="true">Produk <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
@@ -101,24 +131,28 @@
 <div class="wrap hero-text"><h1>Lemari arsip besi Vivorti</h1><p>Filing cabinet laci, lemari pintu ayun, pintu kaca, dan loker. Pilih model yang sesuai kebutuhan arsip Anda.</p></div></section>
 <section class="section" id="produk"><div class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Beranda</a><span>/</span><a href="produk.html">Produk</a><span>/</span>Vivorti</nav>
 <!-- BLOK MEREK VIVORTI. id="vivorti" adalah tujuan menu Produk > Merek Vivorti. -->
-<div class="brand-block" id="vivorti"><div class="brand-head"><img src="assets/images/logo vivorti.png" alt="Logo Vivorti" width="500" height="127"><p>Merek lemari arsip besi dengan model filing cabinet laci, lemari pintu ayun, dan loker. Rangka kokoh, cat powder coating, dan kunci yang aman untuk berkas penting.</p></div><div class="pgrid"><!-- KARTU PRODUK. Untuk menambah produk, salin satu blok <article class="pcard"> ... </article>, ganti id, gambar,
+<div class="brand-block" id="vivorti"><div class="pgrid"><!-- KARTU PRODUK. Untuk menambah produk, salin satu blok <article class="pcard"> ... </article>, ganti id, gambar,
   nama, deskripsi, ukuran, dan tulisan data-produk pada tombol. Tambahkan juga nama produk di daftar pilihan
   formulir (bagian Kontak) dan di data terstruktur di atas. Gambar produk ada di assets/images/. -->
-<article class="pcard" id="vf2"><div class="thumb"><img src="assets/images/VT-SL01.png" alt="Vivorti VF-2 Filing cabinet 2 laci - lemari arsip besi merek Vivorti" width="420" height="520" loading="lazy"><a class="sz-open" href="produk/vf2.html">Lihat ukuran &amp; detail</a></div>
-<div class="pbody"><span class="ptype">Filing cabinet 2 laci</span><h4>Vivorti VF-2</h4><p>Lemari arsip pintu kaca geser dengan rak penyimpanan bertingkat untuk memudahkan pengelolaan dokumen dan arsip kantor.</p>
-<a href="kontak.html?produk=Vivorti+VF-2" class="btn btn-primary btn-sm" data-produk="Vivorti VF-2">Tanya harga Vivorti VF-2</a></div></article><article class="pcard" id="vf4"><div class="thumb"><img src="assets/images/VT-SL02G.png" alt="Vivorti VF-4 Filing cabinet 4 laci - lemari arsip besi merek Vivorti" width="420" height="520" loading="lazy"><a class="sz-open" href="produk/vf4.html">Lihat ukuran &amp; detail</a></div>
-<div class="pbody"><span class="ptype">Filing cabinet 4 laci</span><h4>Vivorti VF-4</h4><p>Kabinet arsip multifungsi dengan kombinasi pintu kaca, laci, dan ruang penyimpanan bawah untuk kebutuhan penyimpanan yang lebih lengkap.</p>
-<a href="kontak.html?produk=Vivorti+VF-4" class="btn btn-primary btn-sm" data-produk="Vivorti VF-4">Tanya harga Vivorti VF-4</a></div></article><article class="pcard" id="vp2"><div class="thumb"><img src="assets/images/lemari arsip-4.png" alt="Vivorti VP-2 Lemari 2 pintu ayun - lemari arsip besi merek Vivorti" width="420" height="520" loading="lazy"><a class="sz-open" href="produk/vp2.html">Lihat ukuran &amp; detail</a></div>
-<div class="pbody"><span class="ptype">Lemari 2 pintu ayun</span><h4>Vivorti VP-2</h4><p>Lemari besi dua pintu berkapasitas besar yang dirancang untuk menjaga dokumen dan perlengkapan kantor tetap aman dan terorganisir.</p>
-<a href="kontak.html?produk=Vivorti+VP-2" class="btn btn-primary btn-sm" data-produk="Vivorti VP-2">Tanya harga Vivorti VP-2</a></div></article><article class="pcard" id="vl6"><div class="thumb"><img src="assets/images/lemari arsip-5.png" alt="Vivorti VL-6 Loker 6 pintu - lemari arsip besi merek Vivorti" width="420" height="520" loading="lazy"><a class="sz-open" href="produk/vl6.html">Lihat ukuran &amp; detail</a></div>
-<div class="pbody"><span class="ptype">Loker 6 pintu</span><h4>Vivorti VL-6</h4><p>Kabinet pintu geser berdesain ringkas yang cocok untuk menyimpan arsip dan perlengkapan kerja tanpa memakan banyak ruang.</p>
-<a href="kontak.html?produk=Vivorti+VL-6" class="btn btn-primary btn-sm" data-produk="Vivorti VL-6">Tanya harga Vivorti VL-6</a></div></article><article class="pcard" id="vg2"><div class="thumb"><img src="assets/images/lemari arsip-2.png" alt="Vivorti VG-2 Lemari 2 pintu kaca ayun - lemari arsip besi" width="420" height="520" loading="lazy"><a class="sz-open" href="produk/vg2.html">Lihat ukuran &amp; detail</a></div>
-<div class="pbody"><span class="ptype">Lemari 2 pintu kaca ayun</span><h4>Vivorti VG-2</h4><p>Lemari dua pintu kaca ayun agar isi arsip terlihat tanpa membuka pintu, dengan rak yang dapat diatur.</p>
-<a href="kontak.html?produk=Vivorti+VG-2" class="btn btn-primary btn-sm" data-produk="Vivorti VG-2">Tanya harga Vivorti VG-2</a></div></article></div></div><p class="brand-switch">Cari merek lain? <a href="produk-zecco.html">Lihat produk Zecco &rarr;</a></p></div></section>
+<article class="pcard" id="vf2"><div class="thumb"><img src="assets/images/VT-SL01 (2).webp" alt="Vivorti SL01-2 Filing cabinet 2 laci - lemari arsip besi merek Vivorti" width="420" height="520" loading="lazy"></div>
+<div class="pbody"><span class="ptype">Filing cabinet 2 laci</span><h4>Vivorti-SL01</h4><p>Lemari arsip pintu kaca geser dengan rak penyimpanan bertingkat untuk memudahkan pengelolaan dokumen dan arsip kantor.</p>
+<div class="pcard-aksi"><a class="aksi-detail" href="produk/v-sl01.html">Lihat detail</a><a href="kontak.html?produk=Vivorti-SL01" class="btn btn-primary btn-sm" data-produk="Vivorti-SL01">Tanya harga</a></div></div></article><article class="pcard" id="vf4"><div class="thumb"><img src="assets/images/VT-SL02G.webp" alt="Vivorti-SL02G Filing cabinet 4 laci - lemari arsip besi merek Vivorti" width="420" height="520" loading="lazy"></div>
+<div class="pbody"><span class="ptype">Filing cabinet 4 laci</span><h4>Vivorti-SL02G</h4><p>Kabinet arsip multifungsi dengan kombinasi pintu kaca, laci, dan ruang penyimpanan bawah untuk kebutuhan penyimpanan yang lebih lengkap.</p>
+<div class="pcard-aksi"><a class="aksi-detail" href="produk/sl02g.html">Lihat detail</a><a href="kontak.html?produk=Vivorti-SL02G" class="btn btn-primary btn-sm" data-produk="Vivorti-SL02G">Tanya harga</a></div></div></article><article class="pcard" id="vp2"><div class="thumb"><img src="assets/images/VT-SLCB.webp" alt="Vivorti-SLCB Lemari 2 pintu ayun - lemari arsip besi merek Vivorti" width="420" height="520" loading="lazy"></div>
+<div class="pbody"><span class="ptype">Lemari 2 pintu ayun</span><h4>Vivorti-SLCB</h4><p>Lemari besi dua pintu berkapasitas besar yang dirancang untuk menjaga dokumen dan perlengkapan kantor tetap aman dan terorganisir.</p>
+<div class="pcard-aksi"><a class="aksi-detail" href="produk/slcb.html">Lihat detail</a><a href="kontak.html?produk=Vivorti-SLCB" class="btn btn-primary btn-sm" data-produk="Vivorti-SLCB">Tanya harga</a></div></div></article><article class="pcard" id="vl6"><div class="thumb"><img src="assets/images/VT-SW01 (1).webp" alt="Vivorti VL-6 Loker 6 pintu - lemari arsip besi merek Vivorti" width="420" height="520" loading="lazy"></div>
+<div class="pbody"><span class="ptype">Loker 6 pintu</span><h4>Vivorti-SW01</h4><p>Kabinet pintu geser berdesain ringkas yang cocok untuk menyimpan arsip dan perlengkapan kerja tanpa memakan banyak ruang.</p>
+<div class="pcard-aksi"><a class="aksi-detail" href="produk/sw01.html">Lihat detail</a><a href="kontak.html?produk=Vivorti-SW01" class="btn btn-primary btn-sm" data-produk="Vivorti-SW01">Tanya harga</a></div></div></article><article class="pcard" id="vg2"><div class="thumb"><img src="assets/images/VT-SWCB.webp" alt="Vivorti VG-2 Lemari 2 pintu kaca ayun - lemari arsip besi" width="420" height="520" loading="lazy"></div>
+<div class="pbody"><span class="ptype">Lemari 2 pintu kaca ayun</span><h4>Vivorti-SWCB</h4><p>Lemari dua pintu kaca ayun agar isi arsip terlihat tanpa membuka pintu, dengan rak yang dapat diatur.</p>
+<div class="pcard-aksi"><a class="aksi-detail" href="produk/swcb.html">Lihat detail</a><a href="kontak.html?produk=Vivorti-SWCB" class="btn btn-primary btn-sm" data-produk="Vivorti-SWCB">Tanya harga</a></div></div></article></div></div><p class="brand-switch">Cari merek lain? <a href="produk-zecco.html">Lihat produk Zecco &rarr;</a></p></div></section>
+<section class="cta-akhir" aria-labelledby="cta-judul"><div class="wrap"><div class="cta-box">
+<div class="cta-teks"><h2 id="cta-judul">Tertarik dengan lemari Vivorti?</h2><p>Tanyakan harga, ukuran, dan penawaran partai besar untuk model Vivorti.</p></div>
+<div class="cta-aksi"><a class="cta-btn utama" href="kontak.html">Konsultasi Sekarang <i aria-hidden="true">&rarr;</i></a><a class="cta-btn kedua" href="https://wa.me/628113301819?text=Halo%2C%20saya%20ingin%20menanyakan%20harga%20lemari%20arsip%20Vivorti." target="_blank" rel="noopener">Chat WhatsApp</a></div>
+</div></div></section>
 </main>
 <footer class="footer"><div class="wrap foot-brand"><a href="index.html" class="brand" aria-label="CV Cahaya Mustika"><img src="assets/images/LOGO CMI.png" alt="CV Cahaya Mustika" width="220" height="56"></a><p>CV Cahaya Mustika, distributor lemari arsip merek Vivorti dan Zecco di Malang, melayani pengiriman ke seluruh Indonesia.</p></div>
 <div class="wrap foot-grid">
-<div><b>Produk</b><a href="produk-vivorti.html">Vivorti</a><a href="produk-zeco.html">Zecco</a></div>
+<div><b>Produk</b><a href="produk-vivorti.html">Vivorti</a><a href="produk-zecco.html">Zecco</a></div>
 <div><b>Informasi Perusahaan</b><a href="index.html">Beranda</a><a href="portofolio.html">Portofolio</a><a href="artikel.html">Artikel</a><a href="index.html#faq">Tanya Jawab</a></div>
 <div><b>Kontak Kami</b><a href="https://wa.me/ 0811-330-1819" target="_blank" rel="noopener" class="fk"><span>WhatsApp</span><strong> 0811-330-1819</strong></a><a href="https://www.google.com/maps/search/?api=1&query=Malang%2C+Jawa+Timur" target="_blank" rel="noopener" class="fk"><span>Lokasi</span><strong>Malang, Jawa Timur</strong><em>Lihat di Google Maps</em></a></div></div>
 <div class="wrap copy">&copy; 2026 CV Cahaya Mustika. Semua hak dilindungi.</div></footer>
@@ -146,7 +180,7 @@
     card.dataset.i = i;
     card.querySelectorAll('.sz').forEach((b, k) => b.setAttribute('aria-pressed', k === i));
     const a = card.querySelector('.sz-open');
-    if (a) a.setAttribute('href', 'produk/' + card.id + '.html?u=' + i);
+    if (a) a.setAttribute('href', a.getAttribute('href').split('?')[0] + '?u=' + i);
   }
 
   // Tautan "Lihat ukuran & detail" mengarah ke halaman detail model
@@ -158,37 +192,21 @@
 })();
 </script>
 <script>
-/* "Lihat lainnya": kartu ke-4 dan seterusnya disembunyikan sampai tombol diklik.
-   Tanpa JavaScript semua kartu tetap tampil. Ubah angka 3 di bawah untuk mengatur jumlah awal. */
+/* Kartu produk muncul bergantian saat di-scroll */
 (function () {
-  var AWAL = 3;
-  var grid = document.querySelector('.pgrid'); if (!grid) return;
-  var kartu = grid.querySelectorAll('.pcard'); if (kartu.length <= AWAL) return;
-  var box = document.createElement('div'); box.className = 'lihat-lain';
-  var btn = document.createElement('button'); btn.type = 'button';
-  btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', 'daftar-produk');
-  btn.innerHTML = '<span class="ll-teks"></span><span class="ll-jml">+' + (kartu.length - AWAL) + '</span>' +
-    '<span class="ll-ikon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span>';
-  box.appendChild(btn);
-  var teks = btn.querySelector('.ll-teks');
-  grid.id = 'daftar-produk'; grid.parentNode.insertBefore(box, grid.nextSibling);
-  var T = function (s) { return window.CM && CM.t ? CM.t(s) : s; };
-  function atur(buka, animasi) {
-    grid.classList.toggle('ringkas', !buka);
-    grid.classList.toggle('baru', !!(buka && animasi));
-    btn.setAttribute('aria-expanded', buka);
-    teks.textContent = T(buka ? 'Tampilkan lebih sedikit' : 'Lihat lainnya');
-  }
-  btn.addEventListener('click', function () { atur(btn.getAttribute('aria-expanded') !== 'true', true); });
-  atur(false);
-  // Tautan seperti produk-vivorti.html#vl6 harus membuka kartu yang tersembunyi
-  function dariTautan() {
-    var id = decodeURIComponent(location.hash.slice(1)), el = id && document.getElementById(id);
-    if (el && grid.contains(el) && el.classList.contains('pcard') && Array.prototype.indexOf.call(kartu, el) >= AWAL) {
-      atur(true, false); el.scrollIntoView({block: 'center'});
-    }
-  }
-  dariTautan(); addEventListener('hashchange', dariTautan);
+  var kartu = document.querySelectorAll('.pcard');
+  if (!kartu.length || !('IntersectionObserver' in window)) return;
+  kartu.forEach(function (k) { k.classList.add('pra'); });
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var k = e.target, i = Array.prototype.indexOf.call(kartu, k) % 3;
+      k.style.animationDelay = (i * 0.1) + 's';
+      k.classList.remove('pra'); k.classList.add('muncul');
+      io.unobserve(k);
+    });
+  }, {threshold: 0.12, rootMargin: '0px 0px -40px 0px'});
+  kartu.forEach(function (k) { io.observe(k); });
 })();
 </script>
 </body></html>

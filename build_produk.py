@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""Bangun halaman detail tiap produk (produk/<kode>.html, contoh produk/vf2.html) dan tambahkan ke sitemap.xml.
+"""Bangun halaman detail tiap produk (produk/<nama>.html, contoh produk/v-SL01.html; nama file mengikuti tautan di kartu produk) dan tambahkan ke sitemap.xml.
 Sumber data: kartu produk dan blok UKURAN di produk-vivorti.html dan produk-zecco.html; header dan footer disalin dari index.html.
 Jalankan setiap kali produk-vivorti.html, produk-zecco.html, atau header/footer index.html berubah:  python build_produk.py
-Butuh Python 3 saja (tanpa library tambahan)."""
-import re, json, html, os, glob, datetime
+Butuh Python 3 saja (tanpa library tambahan).
+
+AMAN: halaman produk/<nama>.html yang SUDAH ADA tidak ditimpa dan tidak dihapus (foto yang sudah kamu pasang tetap utuh).
+Skrip hanya membuat halaman yang belum ada. Untuk membangun ulang SEMUA halaman (misalnya header/footer berubah):  python build_produk.py --timpa
+Saat --timpa, halaman lama dicadangkan dulu ke folder produk_cadangan/."""
+import re, json, html, os, glob, datetime, sys, shutil
 R = os.path.dirname(os.path.abspath(__file__))
 def rd(p): return open(os.path.join(R, p), encoding='utf-8').read()
 def wr(p, s):
@@ -23,25 +27,39 @@ LABEL_JENIS = [                                      # nama foto bawaan menurut 
     ('geser', ['Kunci', 'Handle pintu', 'Rel pintu', 'Rak dalam']),
 ]
 LABEL_BAWAAN = ['Kunci', 'Handle pintu', 'Pintu', 'Rak dalam']
+# Kartu produk di produk-vivorti.html dan produk-zecco.html sekarang tidak memuat kotak Ukuran / Kunci / Cocok untuk,
+# jadi isinya diambil dari sini. Isi per produk (kode: (kunci, cocok untuk)). Produk yang belum diisi memakai nilai bawaan.
+SPEK = {
+    'vf2': ('Kunci sentral', 'Meja kerja, ruang kecil'),
+    # 'vf4': ('Kunci sentral', 'Ruang arsip kantor'),
+}
+KUNCI_BAWAAN, COCOK_BAWAAN = 'Kunci sentral', 'Kantor dan ruang arsip'
+UKURAN_AWAL = 3                                      # ukuran yang terpilih saat halaman dibuka (0 = pertama, 3 = keempat)
 KEUNGGULAN = ['Harga distributor untuk satuan dan partai besar', 'Garansi atas cacat produksi', 'Dikirim aman ke seluruh Indonesia']
 # ========================
 
 index = rd('index.html'); prod = rd('produk-vivorti.html') + rd('produk-zecco.html')   # Vivorti dulu, lalu Zecco
 DOMAIN = re.search(r'<link rel="canonical" href="([^"]+)"', index).group(1)
 
-# --- data produk dari kartu di produk.html ---
-batas = prod.index('id="zecco"')
-P = []
-for m in re.finditer(r'<article class="pcard" id="(\w+)">.*?<img src="([^"]+)".*?<span class="ptype">(.*?)</span><h4>(.*?)</h4><p>(.*?)</p>'
-                     r'<dl><div><dt>Ukuran</dt><dd>(.*?)</dd></div><div><dt>Kunci</dt><dd>(.*?)</dd></div>'
-                     r'<div class="full"><dt>Cocok untuk</dt><dd>(.*?)</dd></div></dl>', prod, re.S):
-    i, img, tipe, nama, desc, uk, kunci, cocok = m.groups()
-    P.append(dict(id=i, img=img, type=tipe, name=nama, desc=desc, ukuran=uk, kunci=kunci, cocok=cocok,
-                  brand='Vivorti' if m.start() < batas else 'Zecco', bid='vivorti' if m.start() < batas else 'zecco'))
-# --- 10 ukuran tiap model dari blok UKURAN di produk.html ---
+# --- 10 ukuran tiap model dari blok UKURAN di produk-vivorti.html dan produk-zecco.html ---
 UK = {}
 for mm in re.finditer(r'const UKURAN = \{(.*?)\n  \};', prod, re.S):
     UK.update({k: json.loads(v) for k, v in re.findall(r'(\w+):\s*(\[.*?\])', mm.group(1), re.S)})
+
+# --- data produk dari kartu (foto, jenis, nama, deskripsi). Kotak dl Ukuran/Kunci/Cocok untuk boleh tidak ada ---
+batas = prod.index('id="zecco"')
+P = []
+for m in re.finditer(r'<article class="pcard" id="(\w+)">.*?<img src="([^"]+)".*?<span class="ptype">(.*?)</span><h4>(.*?)</h4><p>(.*?)</p>'
+                     r'(?:\s*<dl><div><dt>Ukuran</dt><dd>(.*?)</dd></div><div><dt>Kunci</dt><dd>(.*?)</dd></div>'
+                     r'<div class="full"><dt>Cocok untuk</dt><dd>(.*?)</dd></div></dl>)?', prod, re.S):
+    i, img, tipe, nama, desc, uk, kunci, cocok = m.groups()
+    kk, cc = SPEK.get(i, (KUNCI_BAWAAN, COCOK_BAWAAN))
+    # nama file halaman detail diambil dari tautan "Lihat ukuran & detail" di kartu (contoh produk/v-SL01.html); kalau tidak ada, pakai id kartu
+    sl = re.search(r'class="(?:sz-open|aksi-detail)" href="produk/([^"?#]+)\.html', prod[m.start():prod.index('</article>', m.start())])
+    P.append(dict(id=i, slug=sl.group(1) if sl else i, img=img, type=tipe, name=nama, desc=desc, ukuran=uk or (UK[i][UKURAN_AWAL] + ' cm'), kunci=kunci or kk, cocok=cocok or cc,
+                  brand='Vivorti' if m.start() < batas else 'Zecco', bid='vivorti' if m.start() < batas else 'zecco'))
+if not P:
+    raise SystemExit('GAGAL: tidak ada kartu produk yang terbaca di produk-vivorti.html / produk-zecco.html. Folder produk/ tidak diubah.')
 
 # --- header & footer disalin dari index.html, alamatnya disesuaikan untuk folder produk/ ---
 def rel(block):
@@ -57,19 +75,19 @@ TPL = '''<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>try{var s=localStorage.getItem("cm-theme");document.documentElement.dataset.theme=s||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");if(localStorage.getItem("cm-lang")==="en")document.documentElement.lang="en"}catch(e){}</script>
-<script>function fb(i,n){i.onerror=null;i.src=i.dataset.main;i.classList.add("fb","fb"+n)}</script>
-<title>@@NAMA@@ @@TIPE@@ | CV Cahaya Mustika</title>
+<script>function fb(i,n){var e=(i.dataset.ext||"").split(",").filter(Boolean);if(e.length){var x=e.shift();i.dataset.ext=e.join(",");i.src=i.src.replace(/\\.\\w+$/,"."+x);return}i.onerror=null;i.src=i.dataset.main;i.classList.add("fb","fb"+n)}</script>
+<title>@@NAMA@@ @@TIPE@@ | Cahaya Mustika Internesia</title>
 <meta name="description" content="@@DESC@@">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#0b1f4a">
 <link rel="canonical" href="@@URL@@">
-<meta property="og:type" content="product"><meta property="og:locale" content="id_ID"><meta property="og:site_name" content="CV Cahaya Mustika">
+<meta property="og:type" content="product"><meta property="og:locale" content="id_ID"><meta property="og:site_name" content="Cahaya Mustika Internesia">
 <meta property="og:title" content="@@NAMA@@ @@TIPE@@"><meta property="og:description" content="@@DESC@@"><meta property="og:url" content="@@URL@@">
 <meta property="og:image" content="@@IMGABS@@"><meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">@@LD@@</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" href="../assets/images/logo.svg"><link rel="stylesheet" href="../css/style.css"><link rel="stylesheet" href="../css/produk-detail.css">
+<link rel="icon" href="../assets/images/logo.svg"><link rel="stylesheet" href="../css/style.css"><link rel="stylesheet" href="../css/produk-detail.css?v=4">
 </head>
 <body>
 @@NAV@@
@@ -79,7 +97,7 @@ TPL = '''<!DOCTYPE html>
 <section class="d-main"><div class="wrap d-grid">
 <div class="d-gal">
 <div class="d-thumbs" role="group" aria-label="Foto detail produk">@@THUMBS@@</div>
-<div class="d-stage"><div class="d-view"><img id="d-big" class="is-product" src="../@@IMG@@" alt="@@NAMA@@ @@TIPE@@ - lemari arsip besi merek @@BRAND@@" width="420" height="520"></div><button type="button" class="d-zoom" id="d-zoom">Perbesar foto</button></div>
+<div class="d-stage"><div class="d-view"><img id="d-big" class="is-detail" src="../@@IMG@@" alt="@@NAMA@@ @@TIPE@@ - lemari arsip besi merek @@BRAND@@" width="420" height="520"></div><button type="button" class="d-zoom" id="d-zoom">Perbesar foto</button></div>
 </div>
 <div class="d-info">
 <span class="ptype">@@TIPE@@</span><h1>@@NAMA@@</h1><p>@@DESC@@</p>
@@ -118,7 +136,7 @@ TPL = '''<!DOCTYPE html>
   // Galeri: klik foto kecil untuk menampilkannya di foto besar, klik lagi untuk kembali ke foto produk
   var big = $('#d-big'), awal = big.getAttribute('src'), altAwal = big.alt;
   var ths = document.querySelectorAll('.d-th');
-  function kembali() { big.src = awal; big.alt = altAwal; big.className = 'is-product'; ths.forEach(function (t) { t.setAttribute('aria-pressed', false); }); }
+  function kembali() { big.src = awal; big.alt = altAwal; big.className = 'is-detail'; ths.forEach(function (t) { t.setAttribute('aria-pressed', false); }); }
   ths.forEach(function (t) {
     t.addEventListener('click', function () {
       if (t.getAttribute('aria-pressed') === 'true') return kembali();
@@ -143,12 +161,17 @@ def labels(p):
         if kata in p['type'].lower(): return lb
     return LABEL_BAWAAN
 
-for f in glob.glob(os.path.join(R, 'produk', '*.html')): os.remove(f)
+TIMPA = '--timpa' in sys.argv
+if TIMPA:
+    cad = os.path.join(R, 'produk_cadangan', datetime.datetime.now().strftime('%Y%m%d-%H%M%S')); os.makedirs(cad, exist_ok=True)
+    for f in glob.glob(os.path.join(R, 'produk', '*.html')): shutil.copy2(f, cad); os.remove(f)
+    print('Halaman lama dicadangkan ke', os.path.relpath(cad, R))
+dibuat, dilewati = [], []
 for p in P:
     uk = UK[p['id']]; maxT = max(int(s.split('x')[2]) for s in uk)
     awal = next((k for k, s in enumerate(uk) if s + ' cm' == p['ukuran']), 0)
     model = p['name'].replace(p['brand'] + ' ', '', 1)
-    url = f'{DOMAIN}produk/{p["id"]}.html'
+    url = f'{DOMAIN}produk/{p["slug"]}.html'
     imgabs = DOMAIN + p['img'].replace(' ', '%20')
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "Product", "name": p['name'], "brand": {"@type": "Brand", "name": p['brand']}, "category": p['type'], "image": imgabs,
@@ -160,13 +183,13 @@ for p in P:
             {"@type": "ListItem", "position": 4, "name": p['name'], "item": url}]}]}
     thumbs = ''.join(
         f'<button type="button" class="d-th" aria-pressed="false" aria-label="Foto detail: {esc(lb)}"><img src="../{FOTO_DETAIL.format(id=p["id"], n=n)}" '
-        f'data-main="../{p["img"]}" alt="{esc(p["name"])} - {esc(lb)}" loading="lazy" onerror="fb(this,{n})"><span>{lb}</span></button>'
+        f'data-ext="webp,png,jpeg" data-main="../{p["img"]}" alt="{esc(p["name"])} - {esc(lb)}" loading="lazy" onerror="fb(this,{n})"><span>{lb}</span></button>'
         for n, lb in enumerate(labels(p), 1))
     sizes = ''.join(
         f'<button type="button" class="d-sz" aria-pressed="false"><span class="d-szi"><img src="../{p["img"]}" alt="" loading="lazy" '
         f'style="height:{round(int(s.split("x")[2]) / maxT * 100)}%"></span><span class="d-szl">{s} cm</span></button>' for s in uk)
     other = ''.join(
-        f'<a class="d-oc" href="{o["id"]}.html"><span class="o-img"><img src="../{o["img"]}" alt="{esc(o["name"])} - {esc(o["type"])}" loading="lazy"></span><b>{o["name"]}</b><small>{o["type"]}</small></a>'
+        f'<a class="d-oc" href="{o["slug"]}.html"><span class="o-img"><img src="../{o["img"]}" alt="{esc(o["name"])} - {esc(o["type"])}" loading="lazy"></span><b>{o["name"]}</b><small>{o["type"]}</small></a>'
         for o in P if o['brand'] == p['brand'] and o['id'] != p['id'])
     page = TPL
     for k, v in {'@@NAMAJSON@@': json.dumps(p['name']), '@@UJSON@@': json.dumps(uk), '@@DEF@@': str(awal), '@@LD@@': json.dumps(ld, ensure_ascii=False),
@@ -176,13 +199,15 @@ for p in P:
                  '@@TANYA@@': f'../kontak.html?produk={p["name"].replace(" ", "+")}&ukuran={uk[awal].replace(" ", "+")}+cm',
                  '@@OK@@': ''.join(f'<li>{k}</li>' for k in KEUNGGULAN), '@@SIZES@@': sizes, '@@JML@@': str(len(uk)), '@@OTHER@@': other}.items():
         page = page.replace(k, v)
-    wr(f'produk/{p["id"]}.html', page)
+    if os.path.exists(os.path.join(R, 'produk', p['slug'] + '.html')):
+        dilewati.append(p['slug']); continue
+    wr(f'produk/{p["slug"]}.html', page); dibuat.append(p['slug'])
 
 # --- sitemap: tambahkan halaman produk (entri lama /produk/ diganti) ---
 sm = os.path.join(R, 'sitemap.xml')
 if os.path.exists(sm):
     s = re.sub(r'  <url><loc>[^<]*/produk/[^<]*</loc>.*?</url>\n', '', open(sm, encoding='utf-8').read())
     hari = datetime.date.today().isoformat()
-    baru = ''.join(f'  <url><loc>{DOMAIN}produk/{p["id"]}.html</loc><lastmod>{hari}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>\n' for p in P)
+    baru = ''.join(f'  <url><loc>{DOMAIN}produk/{p["slug"]}.html</loc><lastmod>{hari}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>\n' for p in P)
     open(sm, 'w', encoding='utf-8').write(s.replace('</urlset>', baru + '</urlset>'))
-print(f'Selesai: {len(P)} halaman produk dibuat di folder produk/')
+print(f'Selesai. Dibuat baru: {len(dibuat)} {dibuat}. Dilewati karena sudah ada (tidak diubah): {len(dilewati)} {dilewati}')

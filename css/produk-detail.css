@@ -7,18 +7,18 @@
 
 /* Galeri kiri + info kanan */
 .d-main{padding:clamp(36px,5vw,56px) 0 clamp(36px,5vw,56px)}
-.d-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
-.d-gal{display:grid;grid-template-columns:116px minmax(0,1fr);gap:14px;align-items:start}
-.d-thumbs{display:flex;flex-direction:column;gap:14px}
+.d-grid{display:grid;grid-template-columns:minmax(0,680px) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
+.d-gal{display:grid;grid-template-columns:100px minmax(0,1fr);gap:12px;align-items:start}
+.d-thumbs{display:flex;flex-direction:column;gap:12px}
 .d-th{position:relative;display:block;aspect-ratio:1/1.08;overflow:hidden;padding:0;border:2px solid transparent;border-radius:4px;background:#0b1f4a;cursor:pointer}
 .d-th img{display:block;width:100%;height:100%;object-fit:cover}
 .d-th span{position:absolute;left:0;right:0;bottom:0;padding:20px 8px 6px;text-align:left;font-size:0.94rem;font-weight:600;color:#fff;background:linear-gradient(transparent,rgba(5,13,31,.88))}
 .d-th[aria-pressed=true],.d-th:hover{border-color:var(--gold)}
 .d-stage{position:relative}
-.d-view{aspect-ratio:686/540;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;
+.d-view{aspect-ratio:4/5;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;
   background:radial-gradient(circle at 50% 38%,#2a539f 0%,#0b1f4a 55%,#050d1f 100%)}
 .d-view img{display:block}
-.d-view img.is-product{height:88%;width:auto;filter:drop-shadow(0 22px 20px rgba(0,0,0,.5))}
+.d-view img.is-product{width:100%;height:100%;object-fit:cover;filter:none}
 .d-view img.is-detail{width:100%;height:100%;object-fit:cover}
 .d-zoom{position:absolute;top:14px;right:14px;padding:8px 16px;font:inherit;font-size:0.94rem;letter-spacing:.04em;color:var(--gold);
   background:rgba(5,13,31,.45);border:1px solid var(--gold);border-radius:3px;cursor:pointer;transition:background .2s}
@@ -75,6 +75,12 @@ body:has(dialog[open]){overflow:hidden}
 [data-theme=dark] :is(.d-sz,.d-oc){background:#0c1a36}
 [data-theme=dark] .d-sz[aria-pressed=true]{background:rgba(200,169,106,.16)}
 
+/* Desktop: kolom foto kecil dibuat setinggi foto besar */
+@media(min-width:701px){
+  .d-gal{align-items:stretch}
+  .d-th{flex:1;min-height:0;aspect-ratio:auto}
+}
+
 /* Tampilan tablet dan HP */
 @media(max-width:1000px){
   .d-grid,.d-cols{grid-template-columns:1fr}
@@ -87,3 +93,10 @@ body:has(dialog[open]){overflow:hidden}
   .d-spec{grid-template-columns:1fr}.d-spec div{border-left:0;border-top:1px solid var(--line)}.d-spec div:first-child{border-top:0}
   .d-sizes{grid-template-columns:repeat(2,1fr)}
 }
+/* Tombol kembali ke halaman produk merek (Vivorti / Zecco) */
+.d-back{display:inline-flex;align-items:center;gap:12px;margin:0 0 24px;padding:6px 24px 6px 6px;border-radius:999px;background:linear-gradient(135deg,#0b1f4a 0%,#173a78 55%,#2f6fd6 100%);color:#fff;font-weight:600;font-size:.95rem;line-height:1.2;letter-spacing:.01em;box-shadow:0 10px 24px rgba(11,31,74,.24);transition:transform .25s ease,box-shadow .25s ease}
+.d-back i{flex:none;width:36px;height:36px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(135deg,#dcc48d,#c8a96a 55%,#b18f4c);color:#0b1f4a;font-style:normal;font-size:1.2rem;line-height:1;box-shadow:0 4px 10px rgba(0,0,0,.22);transition:transform .25s ease}
+.d-back:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(47,111,214,.32)}
+.d-back:hover i{transform:translateX(-4px)}
+.d-back:focus-visible{outline:2px solid #c8a96a;outline-offset:3px}
+[data-theme=dark] .d-back{background:linear-gradient(135deg,#173a78 0%,#2f6fd6 100%)}

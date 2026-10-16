@@ -601,23 +601,37 @@ html.tswap *,html.tswap *::before,html.tswap *::after{transition:background-colo
    (blok ini sengaja ditaruh paling bawah supaya mengalahkan gaya bawaan tiap halaman)
    ========================================================= */
 
-/* ---- Header (menu atas): huruf hitam di mode terang ---- */
+/* ---- Header (menu atas), mode terang ----
+   Belum digulir (di atas hero biru): huruf PUTIH.
+   Sudah digulir (header jadi putih): huruf HITAM. */
 @media(min-width:901px){
-  [data-theme=light] .navbar .nav-menu>a:not(.btn),
-  [data-theme=light] .navbar .dropdown-btn,
-  [data-theme=light] .navbar .prefs,
-  [data-theme=light] .navbar .brand{color:#000!important}
-  [data-theme=light] .navbar .nav-menu>a:not(.btn):hover,
-  [data-theme=light] .navbar .dropdown-btn:hover{color:var(--gold-d)!important}
+  [data-theme=light] .navbar:not(.scrolled) .nav-menu>a:not(.btn),
+  [data-theme=light] .navbar:not(.scrolled) .dropdown-btn,
+  [data-theme=light] .navbar:not(.scrolled) .prefs,
+  [data-theme=light] .navbar:not(.scrolled) .brand{color:#fff!important}
+  [data-theme=light] .navbar:not(.scrolled) .nav-menu>a:not(.btn):hover,
+  [data-theme=light] .navbar:not(.scrolled) .dropdown-btn:hover{color:var(--gold)!important}
+
+  [data-theme=light] .navbar.scrolled .nav-menu>a:not(.btn),
+  [data-theme=light] .navbar.scrolled .dropdown-btn,
+  [data-theme=light] .navbar.scrolled .prefs,
+  [data-theme=light] .navbar.scrolled .brand{color:#000!important}
+  [data-theme=light] .navbar.scrolled .nav-menu>a:not(.btn):hover,
+  [data-theme=light] .navbar.scrolled .dropdown-btn:hover{color:var(--gold-d)!important}
   /* halaman yang sedang dibuka tetap bertanda emas */
-  [data-theme=light] .navbar .nav-menu a[aria-current=page]{color:var(--gold-d)!important}
+  [data-theme=light] .navbar .nav-menu a[aria-current=page]{color:var(--gold)!important}
+  [data-theme=light] .navbar.scrolled .nav-menu a[aria-current=page]{color:var(--gold-d)!important}
 }
-[data-theme=light] .navbar .menu-toggle span{background:#000!important}
+/* Tombol menu (HP): putih di atas, hitam setelah digulir */
+[data-theme=light] .navbar:not(.scrolled) .menu-toggle span{background:#fff!important}
+[data-theme=light] .navbar.scrolled .menu-toggle span{background:#000!important}
 [data-theme=light] .navbar .nav-menu{font-weight:500}
 
 /* Halaman detail produk: pita atasnya gelap, jadi menu dibuat putih supaya huruf hitamnya terbaca */
 [data-theme=light] body:has(.d-top) .navbar{background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom-color:var(--line);box-shadow:0 8px 30px rgba(5,13,31,.06)}
 [data-theme=light] body:has(.d-top) .navbar .logo-light{display:none}
+@media(min-width:901px){[data-theme=light] body:has(.d-top) .navbar .nav-menu>a:not(.btn),[data-theme=light] body:has(.d-top) .navbar .dropdown-btn,[data-theme=light] body:has(.d-top) .navbar .prefs{color:#000!important}[data-theme=light] body:has(.d-top) .navbar .nav-menu a[aria-current=page]{color:var(--gold-d)!important}}
+[data-theme=light] body:has(.d-top) .navbar .menu-toggle span{background:#000!important}
 [data-theme=light] body:has(.d-top) .navbar .logo-dark{display:block}
 
 /* ---- Judul halaman lebih besar dari isinya ---- */

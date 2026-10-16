@@ -8,7 +8,7 @@
 // assets/images/bg/hero-ruangan.jpg dengan gradasi biru muda yang sama.
 // Kalau foto itu tidak ada di folder, hero tetap memakai foto lamanya (warna biru muda tetap sama).
 (function () {
-  const FOTO = 'assets/images/bg/hero-ruangan.jpg';
+  const FOTO = 'assets/images/bg/hero-ruangan (1).webp';
   const cs = document.currentScript;
   const base = cs && cs.src ? cs.src.replace(/js\/[^\/]*$/, '') : '';
   const url = base + FOTO;
