@@ -649,3 +649,18 @@ body .pf-head p{font-size:1.12rem}
 body .peta-h{font-size:1.55rem}
 body .peta-alamat{font-size:1.04rem;font-weight:400}
 footer.footer.ft .ft-brand p{font-weight:400!important}
+/* =========================================================
+   Halaman tanpa hero (Kontak, Artikel, Portofolio): header putih, huruf HITAM
+   Berlaku sejak halaman dibuka, tidak menunggu digulir. Mode gelap tidak diubah.
+   ========================================================= */
+@media(min-width:901px){
+  [data-theme=light] body.tanpa-hero .navbar .nav-menu>a:not(.btn),
+  [data-theme=light] body.tanpa-hero .navbar .dropdown-btn,
+  [data-theme=light] body.tanpa-hero .navbar .prefs,
+  [data-theme=light] body.tanpa-hero .navbar .brand{color:#000!important}
+  [data-theme=light] body.tanpa-hero .navbar .nav-menu>a:not(.btn):hover,
+  [data-theme=light] body.tanpa-hero .navbar .dropdown-btn:hover{color:var(--gold-d)!important}
+  /* halaman yang sedang dibuka tetap bertanda emas tua */
+  [data-theme=light] body.tanpa-hero .navbar .nav-menu a[aria-current=page]{color:var(--gold-d)!important}
+}
+[data-theme=light] body.tanpa-hero .navbar .menu-toggle span{background:#000!important}
