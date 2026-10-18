@@ -93,9 +93,9 @@ html .a-hero[data-bg] .tag{color:#fff;border-color:rgba(255,255,255,.8);backgrou
    Putih di mode terang, gelap di mode gelap. */
 footer.footer.ft{background:#fff;color:#5f6f88;padding:0;border-top:3px solid #c8a96a;font-size:1rem;line-height:1.6}
 footer.footer.ft .ft-main{padding-top:64px;padding-bottom:52px}
-footer.footer.ft .ft-brand{max-width:360px}
-footer.footer.ft .ft-logo{display:block;flex:0 0 auto}
-footer.footer.ft .ft-logo img{height:72px;width:auto;display:block;margin:0}
+footer.footer.ft .ft-brand{max-width:360px;text-align:center}
+footer.footer.ft .ft-logo{display:block;flex:0 0 auto;margin:0 auto}
+footer.footer.ft .ft-logo img{height:170px;width:auto;display:block;margin:0 auto}
 footer.footer.ft .ft-brand p{margin:18px 0 0;color:#5f6f88;font-weight:300;line-height:1.75}
 
 footer.footer.ft .ft-grid{display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:56px;align-items:start}
@@ -154,7 +154,7 @@ footer.footer.ft .ft-bar{background:#f6f8fc;border-top:1px solid #e6edf7;padding
 <div class="wrap ft-main">
   <div class="ft-grid">
     <div class="ft-brand">
-      <a class="ft-logo" href="${p}index.html" aria-label="Cahaya Mustika Internesia"><img src="${p}assets/images/LOGO CMI.png" alt="Cahaya Mustika Internesia" width="220" height="56"></a>
+      <a class="ft-logo" href="${p}index.html" aria-label="Cahaya Mustika Internesia"><img src="${p}assets/images/logoCMI.webp" alt="Cahaya Mustika Internesia" width="141" height="170"></a>
       <p>Cahaya Mustika Internesia, distributor lemari arsip merek Vivorti dan Zecco di Jakarta, melayani pengiriman ke seluruh Indonesia.</p>
     </div>
     <div class="ft-list">
