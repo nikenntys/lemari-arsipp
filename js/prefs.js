@@ -99,8 +99,8 @@ footer.footer.ft .ft-logo img{height:170px;width:auto;display:block;margin:0 aut
 footer.footer.ft .ft-brand p{margin:18px 0 0;color:#5f6f88;font-weight:300;line-height:1.75}
 
 footer.footer.ft .ft-grid{display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:56px;align-items:start}
-footer.footer.ft h4{margin:0 0 22px;color:#0b1f4a;font-size:1.2rem;font-weight:600;letter-spacing:.02em;position:relative;padding-bottom:12px}
-footer.footer.ft h4::after{content:"";position:absolute;left:0;bottom:0;width:34px;height:2px;background:#c8a96a;border-radius:2px}
+footer.footer.ft h2{margin:0 0 22px;color:#0b1f4a;font-size:1.2rem;font-weight:600;letter-spacing:.02em;position:relative;padding-bottom:12px}
+footer.footer.ft h2::after{content:"";position:absolute;left:0;bottom:0;width:34px;height:2px;background:#c8a96a;border-radius:2px}
 
 footer.footer.ft a{color:#5f6f88;text-decoration:none;transition:color .2s ease}
 footer.footer.ft a:hover{color:#2f6fd6}
@@ -124,7 +124,7 @@ footer.footer.ft .ft-bar{background:#f6f8fc;border-top:1px solid #e6edf7;padding
 [data-theme="dark"] footer.footer.ft .ft-logo img{background:#fff;padding:10px 18px;border-radius:10px;box-sizing:content-box}
 [data-theme="dark"] footer.footer.ft .ft-brand p,
 [data-theme="dark"] footer.footer.ft a{color:#93a4c6}
-[data-theme="dark"] footer.footer.ft h4,
+[data-theme="dark"] footer.footer.ft h2,
 [data-theme="dark"] footer.footer.ft .ft-item b,
 [data-theme="dark"] footer.footer.ft .ft-item a.ft-v{color:#fff}
 [data-theme="dark"] footer.footer.ft a:hover,
@@ -158,11 +158,11 @@ footer.footer.ft .ft-bar{background:#f6f8fc;border-top:1px solid #e6edf7;padding
       <p>Cahaya Mustika Internesia, distributor lemari arsip merek Vivorti dan Zecco di Jakarta, melayani pengiriman ke seluruh Indonesia.</p>
     </div>
     <div class="ft-list">
-      <h4>Informasi Perusahaan</h4>
+      <h2>Informasi Perusahaan</h2>
       <a href="${p}index.html">Beranda</a><a href="${p}portofolio.html">Portofolio</a><a href="${p}artikel.html">Artikel</a><a href="${p}index.html#faq">Tanya Jawab</a><a href="${p}kontak.html">Kontak Kami</a>
     </div>
     <div>
-      <h4>Kontak Kami</h4>
+      <h2>Kontak Kami</h2>
       <div class="ft-kontak">
         <div class="ft-item"><span class="ft-ico" aria-hidden="true">${I.wa}</span><div><small>WhatsApp</small><a class="ft-v" href="https://wa.me/${WA_LINK}" target="_blank" rel="noopener">${WA_TAMPIL}</a></div></div>
         <div class="ft-item"><span class="ft-ico" aria-hidden="true">${I.pin}</span><div><small>Alamat</small><b>${ALAMAT}</b><a class="ft-peta" href="${maps}" target="_blank" rel="noopener">Buka di Google Maps &rarr;</a></div></div>

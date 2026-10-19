@@ -29,7 +29,7 @@ if ($('#article-list')) {
     const fotos = (a.produk || []).slice(0, i === 0 ? 3 : 1).map(fotoProduk).filter(Boolean);
     return `<a class="art${i === 0 ? ' feat' : ''}" href="artikel/${a.slug}.html">
     <div class="cover"><span>${a.cat}</span>${i === 0 ? '<span>Terbaru</span>' : ''}<div class="imgs">${fotos.map(f => `<img src="${f}" alt="Produk yang dibahas: ${a.title}" loading="lazy">`).join('')}</div></div>
-    <div class="body"><h3>${a.title}</h3><p>${a.excerpt}</p>
+    <div class="body"><h2>${a.title}</h2><p>${a.excerpt}</p>
     <div class="meta"><span>${a.date} &middot; ${a.read}</span></div>
     <span class="btn btn-primary btn-sm">${i === 0 ? 'Baca artikel terbaru' : 'Baca artikel berikutnya'} &rarr;</span></div></a>`;
   };
@@ -37,7 +37,7 @@ if ($('#article-list')) {
   const TAMPIL = 4;
   const lama = ARTICLES.slice(1);
   list.innerHTML = kartu(ARTICLES[0], 0) + (lama.length
-    ? `<h3 class="older-title">Artikel sebelumnya</h3><div class="older">${lama.map((a, i) => kartu(a, i + 1)).join('')}</div>` +
+    ? `<h2 class="older-title">Artikel sebelumnya</h2><div class="older">${lama.map((a, i) => kartu(a, i + 1)).join('')}</div>` +
       (lama.length > TAMPIL - 1 ? '<button class="btn btn-ghost" id="more-articles" type="button">Tampilkan artikel lainnya</button>' : '')
     : '');
   document.querySelectorAll('.older .art').forEach((el, i) => { if (i >= TAMPIL - 1) el.classList.add('extra'); });

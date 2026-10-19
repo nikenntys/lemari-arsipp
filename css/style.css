@@ -114,11 +114,11 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}button{fon
 .art .cover span{color:var(--gold);font-size:0.94rem;letter-spacing:.08em;font-weight:500;border:1px solid rgba(200,169,106,.55);padding:3px 12px;border-radius:3px}
 .art .cover::after{content:"";position:absolute;right:24px;top:18px;width:58px;height:78px;border-radius:5px;background:linear-gradient(160deg,rgba(255,255,255,.55),rgba(255,255,255,.18));box-shadow:inset 0 -26px 0 rgba(255,255,255,.12),inset 0 -52px 0 rgba(255,255,255,.08)}
 .art .body{padding:24px 28px 28px;display:flex;flex-direction:column;flex:1}
-.art h3{font-size:1.26rem;line-height:1.4;letter-spacing:-.01em;font-weight:500;color:var(--navy)}
+.art h2,.art h3{font-size:1.26rem;line-height:1.4;letter-spacing:-.01em;font-weight:500;color:var(--navy)}
 .art p{font-size:0.97rem;color:var(--muted);margin:10px 0 18px;font-weight:400}
 .art .meta{margin-top:auto;font-size:0.94rem;color:var(--muted);display:flex;justify-content:space-between}
 .art .meta b{color:var(--gold-d);font-weight:600}
-.art.feat{grid-row:span 2}.art.feat .cover{min-height:260px}.art.feat h3{font-size:1.89rem}
+.art.feat{grid-row:span 2}.art.feat .cover{min-height:260px}.art.feat h2,.art.feat h3{font-size:1.89rem}
 .art.feat .cover::after{width:92px;height:120px;top:26px;right:34px}
 
 .faq-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:clamp(40px,6vw,100px)}
@@ -232,7 +232,7 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}button{fon
 
 /* Font: Manrope untuk semua judul (h1-h6), Poppins untuk teks isi */
 h1,h2,h3,h4,h5,h6{font-family:'Manrope','Poppins',system-ui,sans-serif}
-.head h2,.hero h1,.a-hero h1,.a-body h2,.art h3,.pbody h4{font-weight:600}
+.head h2,.hero h1,.a-hero h1,.a-body h2,.art h2,.art h3,.pbody h4{font-weight:600}
 
 /* Artikel di beranda: kartu besar (terbaru) di atas, artikel sebelumnya di bawah */
 .articles{display:block}
@@ -245,7 +245,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Manrope','Poppins',system-ui,sans-serif}
 .art.feat{display:grid;grid-template-columns:1.05fr 1fr}
 .art.feat .cover{min-height:360px;border-bottom:0;border-right:2px solid var(--gold)}
 .art.feat .body{padding:40px 44px;justify-content:center}
-.art.feat h3{font-size:clamp(1.77rem,2.4vw,2.48rem);line-height:1.3}
+.art.feat h2,.art.feat h3{font-size:clamp(1.77rem,2.4vw,2.48rem);line-height:1.3}
 .art.feat p{font-size:1.1rem;margin:14px 0 22px}
 .art.feat .body .meta{margin-top:0}
 .older-title{font-size:1.53rem;font-weight:600;color:var(--navy);margin:52px 0 18px;letter-spacing:-.01em}
@@ -336,7 +336,7 @@ html.tswap *,html.tswap *::before,html.tswap *::after{transition:background-colo
 [data-theme=dark] .navbar.scrolled .menu-toggle span{background:#fff}
 [data-theme=dark] .navbar.scrolled .logo-dark{display:none}[data-theme=dark] .navbar.scrolled .logo-light{display:block}
 [data-theme=dark] .facts{border-bottom:1px solid rgba(255,255,255,.08)}
-[data-theme=dark] :is(.head h2,.cinfo h2,.pinfo h3,.services h3,.tile strong,.art h3,.pbody h4,.contact label,.r-body h2,.r-body h3,.a-body h2,.a-more h2,.older-title,.a-side .a-cta h2){color:#f2f6ff}
+[data-theme=dark] :is(.head h2,.cinfo h2,.pinfo h3,.services h3,.tile strong,.art h2,.art h3,.pbody h4,.contact label,.r-body h2,.r-body h3,.a-body h2,.a-more h2,.older-title,.a-side .a-cta h2){color:#f2f6ff}
 [data-theme=dark] :is(.tile,.art,.pcard,.dropdown-list,.r-foot,.reader){background:#0c1a36}
 [data-theme=dark] .t-big{background:radial-gradient(circle at 80% 10%,#2a539f,#0b1f4a 60%,#050d1f)}
 [data-theme=dark] :is(.a-body,.r-body) p{color:#b7c6e4}
