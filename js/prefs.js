@@ -42,7 +42,8 @@ html .a-hero[data-bg] .tag{color:#fff;border-color:rgba(255,255,255,.8);backgrou
   document.head.appendChild(css);
 
   // ganti foto semua hero dengan foto ruangan (satu foto, tidak berganti-ganti)
-  const heroes = [...document.querySelectorAll('.hero[data-bg], .a-hero[data-bg]')];
+  // hero yang sudah memakai foto ini langsung di HTML tidak perlu diganti lewat skrip (foto ditemukan lebih awal oleh browser)
+  const heroes = [...document.querySelectorAll('.hero[data-bg], .a-hero[data-bg]')].filter(h => !h.dataset.bg.includes(FOTO));
   if (!heroes.length || !base) return;
   const lama = heroes.map(h => {
     const box = h.querySelector(':scope > .bg-slides');
