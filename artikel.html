@@ -70,7 +70,7 @@
 </head>
 <body class="tanpa-hero">
 <header class="navbar scrolled" id="top"><div class="nav-inner">
-<a href="index.html" class="brand" aria-label="CV Cahaya Mustika, beranda"><img class="logo-light" src="assets/images/LOGO CMI.png" alt="CV Cahaya Mustika" width="204" height="52"><img class="logo-dark" src="assets/images/LOGO CMI.png" alt="" width="204" height="52"></a>
+<a href="index.html" class="brand" aria-label="CV Cahaya Mustika, beranda"><img class="logo-light" src="assets/images/LOGO CMI (1).webp" alt="CV Cahaya Mustika" width="204" height="52"><img class="logo-dark" src="assets/images/LOGO CMI (1).webp" alt="" width="204" height="52"></a>
 <button class="menu-toggle" aria-label="Buka menu" aria-expanded="false"><span></span><span></span><span></span></button>
 <nav class="nav-menu" id="menu"><a href="index.html">Beranda</a>
 <div class="dropdown"><a class="dropdown-btn" href="produk.html" aria-haspopup="true">Produk <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
@@ -81,23 +81,23 @@
 <section class="cta" data-bg="assets/images/bg/cta-1.jpg,assets/images/bg/cta-2.jpg" data-interval="8000"><div class="bg-slides"><span class="on" style="background-image:url('assets/images/bg/cta-1.jpg')"></span></div><div class="wrap cta-inner"><div><h2>Bingung memilih merek, model, atau jumlah?</h2><p>Kirim denah ruangan dan perkiraan jumlah berkas, kami rekomendasikan modelnya.</p></div><a href="kontak.html" class="btn btn-light">Konsultasi Sekarang</a></div></section>
 </main>
 <footer class="footer"><div class="wrap foot-grid">
-<div><a href="index.html" class="brand" aria-label="CV Cahaya Mustika"><img src="assets/images/LOGO CMI.png" alt="CV Cahaya Mustika" width="220" height="56"></a><p>CV Cahaya Mustika, distributor lemari arsip merek Vivorti dan Zecco di Malang, melayani pengiriman ke seluruh Indonesia.</p></div>
+<div><a href="index.html" class="brand" aria-label="CV Cahaya Mustika"><img src="assets/images/logoCMI.webp" alt="CV Cahaya Mustika" width="91" height="110"></a><p>CV Cahaya Mustika, distributor lemari arsip merek Vivorti dan Zecco di Malang, melayani pengiriman ke seluruh Indonesia.</p></div>
 <div><b>Vivorti</b><a href="produk-vivorti.html#vf2">Vivorti VF-2</a><a href="produk-vivorti.html#vf4">Vivorti VF-4</a><a href="produk-vivorti.html#vp2">Vivorti VP-2</a><a href="produk-vivorti.html#vl6">Vivorti VL-6</a></div>
 <div><b>Zecco</b><a href="produk-zecco.html#zs2">Zecco ZS-2</a><a href="produk-zecco.html#zk2">Zecco ZK-2</a><a href="produk-zecco.html#zr3">Zecco ZR-3</a><a href="produk-zecco.html#zf3">Zecco ZF-3</a></div>
 <div><b>Perusahaan</b><a href="portofolio.html">Portofolio</a><a href="artikel.html">Artikel</a><a href="index.html#faq">Tanya Jawab</a><a href="kontak.html">Kontak Kami</a></div></div>
 <div class="wrap copy">&copy; 2026 CV Cahaya Mustika. Semua hak dilindungi.</div></footer>
 <script src="js/articles.js"></script><script src="js/kamus-en.js"></script><script src="js/kamus-artikel-en.js"></script><script src="js/prefs.js"></script><script src="js/latar.js"></script><script src="js/script.js"></script>
 <script>
-/* Kartu artikel bergambar penuh. Foto tiap artikel: assets/images/artikel/<slug>.jpg
-   (slug = nama file artikelnya, contoh: cara-memilih-lemari-arsip.jpg).
+/* Kartu artikel bergambar penuh. Foto tiap artikel: assets/images/artikel/<slug>.webp
+   (slug = nama file artikelnya, contoh: cara-memilih-lemari-arsip.webp).
    Bila foto belum ada, otomatis tampil foto ruangan kantor sebagai cadangan. */
 (function () {
-  var CADANGAN = 'assets/images/bg/hero-ruangan.jpg';
+  var CADANGAN = 'assets/images/bg/hero-ruangan (1).webp';
   var POS = ['92% 50%', '8% 60%', '60% 40%', '30% 30%', '75% 80%', '50% 20%'];
   document.querySelectorAll('#article-list .art').forEach(function (a, i) {
     var cover = a.querySelector('.cover'), m = (a.getAttribute('href') || '').match(/artikel\/([^\/]+)\.html/);
     if (!cover || !m) return;
-    var h = a.querySelector('h3'), img = new Image();
+    var h = a.querySelector('h2'), img = new Image();
     img.className = 'foto-art';
     img.alt = h ? h.textContent : '';
     img.loading = 'lazy';
@@ -108,7 +108,7 @@
       img.src = CADANGAN;
     }
     img.addEventListener('error', cadangan);
-    img.src = 'assets/images/artikel/' + m[1] + '.jpg';
+    img.src = 'assets/images/artikel/' + m[1] + 'Artikel.webp';
     cover.insertBefore(img, cover.firstChild);
   });
 })();
