@@ -69,25 +69,61 @@
 .brand-block .pgrid .pcard .pbody .pcard-aksi{margin-top:auto !important;padding-top:16px}
 </style>
 <style id="cta-akhir-css">
-/* CTA penutup: gradasi biru tua seperti tombol "Lihat lainnya", aksen emas */
-.cta-akhir{padding:24px 0 80px}
-.cta-box{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:38px 46px;border-radius:24px;background:linear-gradient(135deg,#0b1f4a 0%,#173a78 55%,#2f6fd6 100%);color:#fff;box-shadow:0 18px 44px rgba(11,31,74,.24)}
-.cta-box::after{content:"";position:absolute;right:-70px;top:-90px;width:230px;height:230px;border:1px solid rgba(255,255,255,.14);border-radius:50%;pointer-events:none}
-.cta-teks,.cta-aksi{position:relative;z-index:1}
-.cta-teks h2{margin:0 0 8px;color:#fff;font:700 clamp(22px,2.4vw,30px)/1.3 Poppins,sans-serif;letter-spacing:-.01em}
-.cta-teks p{margin:0;max-width:560px;color:rgba(255,255,255,.82);font-size:16px;line-height:1.65}
-.cta-aksi{display:flex;flex-wrap:wrap;gap:12px;flex-shrink:0}
-.cta-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font:600 15px/1.2 Poppins,sans-serif;text-decoration:none;white-space:nowrap;transition:transform .25s ease,background .25s ease,color .25s ease,box-shadow .25s ease}
-.cta-btn i{font-style:normal;transition:transform .25s ease}
-.cta-btn:hover{transform:translateY(-2px)}
-.cta-btn:hover i{transform:translateX(3px)}
-.cta-btn:focus-visible{outline:2px solid #c8a96a;outline-offset:3px}
-.cta-btn.utama{background:linear-gradient(135deg,#dcc48d,#c8a96a 55%,#b18f4c);color:#0b1f4a;box-shadow:0 8px 20px rgba(0,0,0,.22)}
-.cta-btn.kedua{border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.06);color:#fff}
+/* CTA penutup: teks di tengah, dua jendela foto melengkung (arch) berbingkai emas di kiri dan kanan,
+   deretan 3 keunggulan di bawah tombol, bingkai emas ganda. Foto: assets/images/kabinet-arsip-kaca.webp
+   (ganti nama file di baris ".cta-box::before" dan ".cta-box::after" kalau mau foto lain) */
+.cta-akhir{position:relative;padding:0}
+.cta-akhir .wrap{padding:0;max-width:none}
+.cta-akhir::before,.cta-akhir::after{content:"";position:absolute;z-index:3;pointer-events:none}
+.cta-akhir::before{inset:20px;border:1px solid rgba(200,169,106,.42)}
+.cta-akhir::after{inset:28px;border:1px solid rgba(200,169,106,.16)}
+.cta-box{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;text-align:center;
+  padding:clamp(76px,8vw,118px) var(--pad) clamp(64px,6vw,92px);border-radius:0;color:#fff;
+  background:radial-gradient(60% 80% at 50% 0%,rgba(47,111,214,.34),transparent 65%),radial-gradient(50% 70% at 50% 100%,rgba(200,169,106,.12),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.022) 0 1px,transparent 1px 15px),linear-gradient(180deg,#071634 0%,#0b1f4a 52%,#081a3e 100%);
+  box-shadow:inset 0 1px 0 rgba(200,169,106,.8),inset 0 -1px 0 rgba(200,169,106,.35)}
+/* dua jendela foto melengkung, tinggi berbeda, bertumpu pada garis bingkai bawah */
+.cta-box::before,.cta-box::after{content:"";position:absolute;z-index:-1;bottom:21px;width:clamp(170px,16vw,250px);border-radius:999px 999px 0 0;border:1px solid rgba(232,211,160,.7);outline:1px solid rgba(200,169,106,.32);outline-offset:11px;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.cta-box::before{right:clamp(40px,6.5vw,110px);height:76%;background:linear-gradient(180deg,rgba(6,17,39,.10),rgba(6,17,39,.50)),url("assets/images/kabinet-arsip-kaca.webp") center 24%/cover no-repeat}
+.cta-box::after{left:clamp(40px,6.5vw,110px);height:62%;background:linear-gradient(180deg,rgba(6,17,39,.10),rgba(6,17,39,.50)),url("assets/images/kabinet-arsip-kaca.webp") center 72%/cover no-repeat}
+.cta-teks,.cta-aksi,.cta-poin{position:relative;z-index:1}
+.cta-teks{display:flex;flex-direction:column;align-items:center;max-width:780px}
+.cta-label{display:inline-flex;align-items:center;gap:16px;margin:0 0 24px;color:#e8d3a0;font:600 13px/1 Poppins,sans-serif;letter-spacing:.34em;text-transform:uppercase}
+.cta-label::before,.cta-label::after{content:"";width:46px;height:1px;background:linear-gradient(90deg,rgba(232,211,160,.1),#e8d3a0)}
+.cta-label::after{background:linear-gradient(270deg,rgba(232,211,160,.1),#e8d3a0)}
+.cta-teks h2{margin:0;color:#fff;font:700 clamp(30px,3.8vw,54px)/1.14 Poppins,sans-serif;letter-spacing:-.03em;text-wrap:balance;text-shadow:0 2px 28px rgba(0,0,0,.45)}
+.cta-teks h2::after{content:"";display:block;width:150px;height:9px;margin:28px auto 0;background:radial-gradient(circle,#f0dfb4 0 3.5px,transparent 4.5px) center/9px 9px no-repeat,linear-gradient(90deg,transparent,#c8a96a 28%,#c8a96a 72%,transparent) center/100% 1px no-repeat}
+.cta-teks p{margin:24px auto 0;max-width:580px;color:rgba(255,255,255,.86);font-size:clamp(16px,1.3vw,19px);line-height:1.8}
+.cta-aksi{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
+.cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:18px 38px;border-radius:999px;font:600 16px/1.2 Poppins,sans-serif;letter-spacing:.01em;text-decoration:none;white-space:nowrap;transition:transform .3s ease,background .3s ease,color .3s ease,box-shadow .3s ease,border-color .3s ease}
+.cta-btn i{font-style:normal;transition:transform .3s ease}
+.cta-btn:hover{transform:translateY(-3px)}
+.cta-btn:hover i{transform:translateX(4px)}
+.cta-btn:focus-visible{outline:2px solid #e8d3a0;outline-offset:3px}
+.cta-btn.utama{background:linear-gradient(135deg,#f0dfb4 0%,#c8a96a 52%,#a98641 100%);color:#0b1f4a;box-shadow:0 18px 38px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.65)}
+.cta-btn.utama:hover{box-shadow:0 22px 44px rgba(0,0,0,.5),0 0 0 7px rgba(200,169,106,.18),inset 0 1px 0 rgba(255,255,255,.65)}
+.cta-btn.kedua{border:1px solid rgba(232,211,160,.55);background:rgba(6,17,39,.5);color:#fff;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .cta-btn.kedua:hover{background:#fff;color:#0b1f4a;border-color:#fff}
-[data-theme=dark] .cta-box{background:linear-gradient(135deg,#173a78 0%,#2f6fd6 100%);box-shadow:0 18px 44px rgba(0,0,0,.4)}
-@media(max-width:900px){.cta-box{flex-direction:column;align-items:flex-start;padding:30px 26px}.cta-akhir{padding-bottom:56px}}
-@media(max-width:480px){.cta-aksi{width:100%}.cta-btn{width:100%;justify-content:center}}
+/* deretan keunggulan */
+.cta-poin{list-style:none;margin:6px 0 0;padding:26px 0 0;display:grid;grid-template-columns:repeat(3,1fr);width:min(100%,760px);border-top:1px solid rgba(200,169,106,.30)}
+.cta-poin li{display:flex;flex-direction:column;align-items:center;gap:6px;padding:0 18px;border-left:1px solid rgba(200,169,106,.22)}
+.cta-poin li:first-child{border-left:0}
+.cta-poin svg{width:28px;height:28px;margin-bottom:6px;fill:none;stroke:#e8d3a0;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.cta-poin b{color:#fff;font:600 15px/1.3 Poppins,sans-serif;letter-spacing:.01em}
+.cta-poin span{color:rgba(255,255,255,.68);font-size:13.5px;line-height:1.5}
+[data-theme=dark] .cta-box{background:radial-gradient(60% 80% at 50% 0%,rgba(47,111,214,.28),transparent 65%),radial-gradient(50% 70% at 50% 100%,rgba(200,169,106,.09),transparent 70%),repeating-linear-gradient(135deg,rgba(255,255,255,.018) 0 1px,transparent 1px 15px),linear-gradient(180deg,#040c1f 0%,#07173a 52%,#050f27 100%)}
+/* layar sedang: jendela foto jadi latar tipis */
+@media(max-width:1100px){
+  .cta-box::before{inset:0;width:auto;height:auto;border:0;outline:0;border-radius:0;box-shadow:none;opacity:.26;background:linear-gradient(180deg,rgba(6,17,39,.2),rgba(6,17,39,.6)),url("assets/images/kabinet-arsip-kaca.webp") center 40%/cover no-repeat}
+  .cta-box::after{display:none}
+}
+@media(max-width:600px){
+  .cta-akhir::before{inset:12px}.cta-akhir::after{inset:18px}
+  .cta-box{gap:30px;padding:68px calc(var(--pad) + 6px) 56px}
+  .cta-label{letter-spacing:.22em;font-size:11.5px;gap:10px}.cta-label::before,.cta-label::after{width:22px}
+  .cta-aksi{width:100%;flex-direction:column}.cta-btn{width:100%;padding:16px 22px}
+  .cta-poin{grid-template-columns:1fr;gap:18px}.cta-poin li{border-left:0;padding:0}
+  .cta-poin li+li{padding-top:18px;border-top:1px solid rgba(200,169,106,.22)}
+}
 </style>
 <style id="thumb-rapat">
 /* Foto produk: lebih besar & di tengah area foto supaya ruang kosong di atas berkurang */
@@ -150,9 +186,9 @@
 <div class="pbody"><span class="ptype">Lemari Pintu Ayun</span><h4>Lemari Ayun</h4><p>Lemari arsip modern dengan rak penyimpanan luas yang memudahkan penataan dan pencarian dokumen penting.</p>
 <div class="pcard-aksi"><a class="aksi-detail" href="produk/lemari_ayun.html">Lihat detail</a><a href="kontak.html?produk=Zeco+ZF-3" class="btn btn-primary btn-sm" data-produk="Zeco ZF-3">Tanya harga</a></div></div></article></div></div><p class="brand-switch">Cari merek lain? <a href="produk-vivorti.html">Lihat produk Vivorti &rarr;</a></p></div></section>
 <section class="cta-akhir" aria-labelledby="cta-judul"><div class="wrap"><div class="cta-box">
-<div class="cta-teks"><h2 id="cta-judul">Tertarik dengan lemari Zeco?</h2><p>Tanyakan harga, ukuran, dan penawaran partai besar untuk model Zeco.</p></div>
+<div class="cta-teks"><span class="cta-label">Distributor Lemari Arsip</span><h2 id="cta-judul">Tertarik dengan lemari Zeco?</h2><p>Tanyakan harga, ukuran, dan penawaran partai besar untuk model Zeco.</p></div>
 <div class="cta-aksi"><a class="cta-btn utama" href="kontak.html">Konsultasi Sekarang <i aria-hidden="true">&rarr;</i></a><a class="cta-btn kedua" href="https://wa.me/628113301819?text=Halo%2C%20saya%20ingin%20menanyakan%20harga%20lemari%20arsip%20Zeco." target="_blank" rel="noopener">Chat WhatsApp</a></div>
-</div></div></section>
+<ul class="cta-poin"><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg><b>Harga distributor</b><span>Untuk satuan dan partai besar</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.2 8.2-8 9-4.8-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5L15.5 10"/></svg><b>Garansi produk</b><span>Atas cacat produksi</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg><b>Pengiriman aman</b><span>Ke seluruh Indonesia</span></li></ul></div></div></section>
 </main>
 <footer class="footer"><div class="wrap foot-brand"><a href="index.html" class="brand" aria-label="CV Cahaya Mustika"><img src="assets/images/logoCMI.webp" alt="CV Cahaya Mustika" width="220" height="56"></a><p>CV Cahaya Mustika, distributor lemari arsip merek Vivorti dan Zeco di Malang, melayani pengiriman ke seluruh Indonesia.</p></div>
 <div class="wrap foot-grid">
